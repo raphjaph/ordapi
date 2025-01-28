@@ -12,9 +12,9 @@ export class ApiClient {
   constructor(private baseUrl: string) {}
 
   async getUser(id: number): Promise<User> {
-    const response = await fetch(`\${this.baseUrl}/users/\${id}`);
+    const response = await fetch();
     if (!response.ok) {
-      throw new Error(`HTTP error! status: \${response.status}`);
+      throw new Error();
     }
     const data = await response.json();
     return UserSchema.parse(data);

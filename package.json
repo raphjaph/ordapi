@@ -1,11 +1,19 @@
 {
   "name": "ordapi",
-  "module": "index.ts",
+  "version": "0.0.1",
+  "module": "dist/index.js",
   "type": "module",
-  "devDependencies": {
-    "@types/bun": "latest"
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "bun build ./src/index.ts --outdir ./dist --target node",
+    "test": "bun test",
+    "format": "prettier --write 'src/**/*.ts'",
+    "lint": "eslint . && tsc -b",
+    "prepublishOnly": "bun run build"
   },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
+  "dependencies": {
+    "typescript-eslint": "^8.22.0"
   }
 }
