@@ -32,10 +32,22 @@ export const BlockSchema = z.object({
 export type Block = z.infer<typeof BlockSchema>;
 
 export class ApiClient {
-  constructor(private baseUrl: string) { }
+  private headers: HeadersInit;
+
+  constructor(private baseUrl: string,
+    headers: HeadersInit = {}
+  ) {
+    this.headers = {
+      'Accept': 'application/json',
+      ...headers
+    };
+
+  }
 
   async getBlock(blockHeight: number): Promise<Block> {
-    const response = await fetch(`${this.baseUrl}/block/${blockHeight}`);
+    const response = await fetch(`${this.baseUrl}/block/${blockHeight}`, {
+      headers: this.headers
+    });
     if (!response.ok) {
       throw new Error();
     }

@@ -71,3 +71,34 @@ describe('ApiClient', () => {
     expect(result.success).toBe(false);
   });
 });
+
+describe('API Integration Tests', () => {
+  const client = new ApiClient('https://charlie.ordinals.net');
+
+  const TIMEOUT = 10000;
+
+  test('getBlock fetches genesis block', async () => {
+    const block = await client.getBlock(0);
+    expect(block.height).toBe(0);
+    expect(block.hash).toBe("000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f");
+  }, TIMEOUT);
+
+  test('getBlock handles non-existent block', async () => {
+    try {
+      await client.getBlock(-1);
+      throw new Error('Should have thrown an error');
+    } catch (error) {
+      expect(error).toBeDefined();
+    }
+  }, TIMEOUT);
+
+  test('handles server errors gracefully', async () => {
+    const badClient = new ApiClient('https://non.existent.api');
+    try {
+      await badClient.getBlock(0);
+      throw new Error('Should have thrown an error');
+    } catch (error) {
+      expect(error).toBeDefined();
+    }
+  }, TIMEOUT);
+});
