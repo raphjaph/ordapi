@@ -14,6 +14,7 @@
     "prepublishOnly": "bun run build"
   },
   "dependencies": {
-    "typescript-eslint": "^8.22.0"
+    "typescript-eslint": "^8.22.0",
+    "zod": "^3.24.1"
   }
 }
