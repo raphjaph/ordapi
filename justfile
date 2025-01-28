@@ -12,3 +12,5 @@ fmt: install
 
 lint: install
   bun run lint
+
+ci: install fmt lint test

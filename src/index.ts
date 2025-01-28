@@ -19,9 +19,21 @@ export const TransactionSchema = z.object({
   output: z.array(OutputSchema),
 });
 
+const isHexString = (str: string) => /^[0-9a-fA-F]+$/.test(str);
+
+export const blockHashSchema = z
+  .string()
+  .length(64, 'Block hash must be exactly 64 characters long')
+  .refine(
+    isHexString,
+    'Block hash must contain only hexadecimal characters (0-9, a-f, A-F)',
+  );
+
+export type BlockHash = z.infer<typeof blockHashSchema>;
+
 export const BlockSchema = z.object({
   best_height: z.number().int().nonnegative(),
-  hash: z.string(),
+  hash: blockHashSchema,
   height: z.number().int().nonnegative(),
   inscriptions: z.array(z.string()),
   runes: z.array(z.string()),
@@ -44,8 +56,8 @@ export class OrdClient {
     };
   }
 
-  async getBlock(blockHeight: number): Promise<Block> {
-    const response = await fetch(`${this.baseUrl}/block/${blockHeight}`, {
+  async getBlock(heightOrHash: number | BlockHash): Promise<Block> {
+    const response = await fetch(`${this.baseUrl}/block/${heightOrHash}`, {
       headers: this.headers,
     });
     if (!response.ok) {
