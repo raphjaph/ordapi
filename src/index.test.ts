@@ -1,7 +1,7 @@
 import { expect, test, describe } from 'bun:test';
-import { ApiClient, BlockSchema } from './index';
+import { OrdClient as OrdClient, BlockSchema } from './index';
 
-describe('ApiClient', () => {
+describe('OrdClient', () => {
   test('get block by height', () => {
     const validBlock = {
       "best_height": 864325,
@@ -73,7 +73,7 @@ describe('ApiClient', () => {
 });
 
 describe('API Integration Tests', () => {
-  const client = new ApiClient('https://charlie.ordinals.net');
+  const client = new OrdClient('https://charlie.ordinals.net');
 
   const TIMEOUT = 10000;
 
@@ -93,7 +93,7 @@ describe('API Integration Tests', () => {
   }, TIMEOUT);
 
   test('handles server errors gracefully', async () => {
-    const badClient = new ApiClient('https://non.existent.api');
+    const badClient = new OrdClient('https://non.existent.api');
     try {
       await badClient.getBlock(0);
       throw new Error('Should have thrown an error');

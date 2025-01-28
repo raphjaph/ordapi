@@ -31,7 +31,7 @@ export const BlockSchema = z.object({
 
 export type Block = z.infer<typeof BlockSchema>;
 
-export class ApiClient {
+export class OrdClient {
   private headers: HeadersInit;
 
   constructor(private baseUrl: string,
