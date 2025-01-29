@@ -55,7 +55,7 @@ export class OrdClient {
     return result.data;
   }
 
-  async getAddress(address: string): Promise<AddressInfo> {
+  async getAddressInfo(address: string): Promise<AddressInfo> {
     return this.fetch(endpoints.address(address), AddressInfoSchema);
   }
 

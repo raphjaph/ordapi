@@ -44,11 +44,11 @@ describe('API Integration Tests', () => {
     );
   });
 
-  describe('getAddress', () => {
+  describe('getAddressInfo', () => {
     test(
       'fetches address info successfully',
       async () => {
-        const info = await client.getAddress(SAMPLE_ADDRESS);
+        const info = await client.getAddressInfo(SAMPLE_ADDRESS);
         expect(info).toEqual(SAMPLE_ADDRESS_INFO);
       },
       TIMEOUT,
@@ -57,7 +57,7 @@ describe('API Integration Tests', () => {
     test(
       'rejects invalid address format',
       async () => {
-        await expect(client.getAddress('invalid-address')).rejects.toThrow();
+        await expect(client.getAddressInfo('invalid-address')).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -66,7 +66,7 @@ describe('API Integration Tests', () => {
       'handles server error',
       async () => {
         await expect(
-          invalidClient.getAddress(SAMPLE_ADDRESS),
+          invalidClient.getAddressInfo(SAMPLE_ADDRESS),
         ).rejects.toThrow();
       },
       TIMEOUT,
