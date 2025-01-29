@@ -13,4 +13,7 @@ fmt: install
 lint: install
   bun run lint
 
-ci: install fmt lint test
+ci: install lint test
+
+publish:
+  bun publish
