@@ -1,47 +1,16 @@
 import { z } from 'zod';
+import { endpoints } from 'src/endpoints';
+import {
+  BlockSchema,
+  BlockHashSchema,
+  AddressInfoSchema,
+  BlocksResponseSchema,
+} from 'schemas';
+import type { Block, BlockHash, AddressInfo, BlocksResponse } from 'types';
 
-export const InputSchema = z.object({
-  previous_output: z.string(),
-  script_sig: z.string(),
-  sequence: z.number().int().nonnegative(),
-  witness: z.array(z.string()),
-});
-
-export const OutputSchema = z.object({
-  value: z.number().int().nonnegative(),
-  script_pubkey: z.string(),
-});
-
-export const TransactionSchema = z.object({
-  version: z.number().int().nonnegative(),
-  lock_time: z.number().int().nonnegative(),
-  input: z.array(InputSchema),
-  output: z.array(OutputSchema),
-});
-
-const isHexString = (str: string) => /^[0-9a-fA-F]+$/.test(str);
-
-export const blockHashSchema = z
-  .string()
-  .length(64, 'Block hash must be exactly 64 characters long')
-  .refine(
-    isHexString,
-    'Block hash must contain only hexadecimal characters (0-9, a-f, A-F)',
-  );
-
-export type BlockHash = z.infer<typeof blockHashSchema>;
-
-export const BlockSchema = z.object({
-  best_height: z.number().int().nonnegative(),
-  hash: blockHashSchema,
-  height: z.number().int().nonnegative(),
-  inscriptions: z.array(z.string()),
-  runes: z.array(z.string()),
-  target: z.string(),
-  transactions: z.array(TransactionSchema),
-});
-
-export type Block = z.infer<typeof BlockSchema>;
+type ApiResponse<T> =
+  | { success: true; data: T }
+  | { success: false; error: string };
 
 export class OrdClient {
   private headers: HeadersInit;
@@ -56,14 +25,65 @@ export class OrdClient {
     };
   }
 
-  async getBlock(heightOrHash: number | BlockHash): Promise<Block> {
-    const response = await fetch(`${this.baseUrl}/block/${heightOrHash}`, {
+  private async fetch<T extends z.ZodType>(
+    endpoint: string,
+    schema: T,
+  ): Promise<z.infer<T>> {
+    const response = await fetch(`${this.baseUrl}${endpoint}`, {
       headers: this.headers,
     });
+
     if (!response.ok) {
-      throw new Error();
+      throw new Error(`API request failed: ${response.statusText}`);
     }
-    const data = await response.json();
-    return BlockSchema.parse(data);
+
+    const text = await response.text();
+    const result = schema.safeParse(text);
+
+    if (!result.success) {
+      try {
+        const json = JSON.parse(text);
+        const jsonResult = schema.safeParse(json);
+        if (jsonResult.success) {
+          return jsonResult.data;
+        }
+      } catch {}
+
+      throw new Error(`Validation error: ${result.error.message}`);
+    }
+
+    return result.data;
+  }
+
+  async getAddressInfo(address: string): Promise<AddressInfo> {
+    return this.fetch(endpoints.address(address), AddressInfoSchema);
+  }
+
+  async getBlock(heightOrHash: number | BlockHash): Promise<Block> {
+    return this.fetch(endpoints.block(heightOrHash), BlockSchema);
+  }
+
+  async getBlockCount(): Promise<number> {
+    return this.fetch(endpoints.blockcount, z.number().int().nonnegative());
+  }
+
+  async getBlockHashByHeight(height: number): Promise<BlockHash> {
+    return this.fetch(endpoints.blockhashByHeight(height), BlockHashSchema);
+  }
+
+  async getLatestBlockHash(): Promise<BlockHash> {
+    return this.fetch(endpoints.blockhashLatest, BlockHashSchema);
+  }
+
+  async getLatestBlockHeight(): Promise<number> {
+    return this.fetch(endpoints.blockheight, z.number().int().nonnegative());
+  }
+
+  async getLatestBlocks(): Promise<BlocksResponse> {
+    return this.fetch(endpoints.blocks, BlocksResponseSchema);
+  }
+
+  async getLatestBlockTime(): Promise<number> {
+    return this.fetch(endpoints.blocktime, z.number().int());
   }
 }
