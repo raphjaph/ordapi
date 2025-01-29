@@ -7,4 +7,10 @@ export const endpoints = {
   blockheight: '/blockheight',
   blocks: '/blocks',
   blocktime: '/blocktime',
+  inscription: (id: string) => `/inscription/${id}`,
+  inscriptionChild: (id: string, child: number) =>
+    `/inscription/${id}/${child}`,
+  inscriptions: '/inscriptions',
+  inscriptionsByPage: (page: number) => `/inscriptions/${page}`,
+  inscriptionsByBlock: (height: number) => `/inscriptions/block/${height}`,
 } as const;

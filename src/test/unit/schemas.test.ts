@@ -11,6 +11,10 @@ import {
   TransactionSchema,
 } from '../../schemas/transaction';
 import {
+  InscriptionSchema,
+  InscriptionsResponseSchema,
+} from '../../schemas/inscription';
+import {
   GENESIS_BLOCK,
   SAMPLE_ADDRESS_INFO,
   SAMPLE_BLOCKS_RESPONSE,
@@ -18,6 +22,8 @@ import {
   SAMPLE_INPUT,
   SAMPLE_OUTPUT,
   SAMPLE_RUNE_BALANCE,
+  SAMPLE_INSCRIPTION,
+  SAMPLE_INSCRIPTIONS_RESPONSE,
 } from '../data/test-data';
 
 describe('Schema Validation', () => {
@@ -215,6 +221,65 @@ describe('Schema Validation', () => {
           runes_balances: [['TEST•RUNE', 100, '🎯']], // number instead of string
         };
         expect(AddressInfoSchema.safeParse(invalidAddress).success).toBe(false);
+      });
+    });
+  });
+
+  describe('Inscription Schemas', () => {
+    describe('InscriptionSchema', () => {
+      test('validates valid inscription', () => {
+        const result = InscriptionSchema.safeParse(SAMPLE_INSCRIPTION);
+        expect(result.success).toBe(true);
+      });
+
+      test('rejects invalid charm value', () => {
+        const inscriptionWithInvalidCharm = {
+          ...SAMPLE_INSCRIPTION,
+          charms: ['invalid_charm'],
+        };
+        const result = InscriptionSchema.safeParse(inscriptionWithInvalidCharm);
+        expect(result.success).toBe(false);
+      });
+
+      test('validates empty arrays', () => {
+        const inscriptionWithEmptyArrays = {
+          ...SAMPLE_INSCRIPTION,
+          charms: [],
+          children: [],
+          parents: [],
+        };
+        const result = InscriptionSchema.safeParse(inscriptionWithEmptyArrays);
+        expect(result.success).toBe(true);
+      });
+
+      test('rejects negative values', () => {
+        const inscriptionWithNegatives = {
+          ...SAMPLE_INSCRIPTION,
+          content_length: -1,
+          fee: -1,
+          value: -1,
+        };
+        const result = InscriptionSchema.safeParse(inscriptionWithNegatives);
+        expect(result.success).toBe(false);
+      });
+    });
+
+    describe('InscriptionsResponseSchema', () => {
+      test('validates valid response', () => {
+        const result = InscriptionsResponseSchema.safeParse(
+          SAMPLE_INSCRIPTIONS_RESPONSE,
+        );
+        expect(result.success).toBe(true);
+      });
+
+      test('rejects invalid types', () => {
+        const invalidResponse = {
+          SAMPLE_INSCRIPTIONS_RESPONSE,
+          ids: [123], // should be strings
+          page_index: -1, // should be non-negative
+        };
+        const result = InscriptionsResponseSchema.safeParse(invalidResponse);
+        expect(result.success).toBe(false);
       });
     });
   });

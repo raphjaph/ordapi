@@ -70,6 +70,9 @@ export const SAMPLE_BLOCKS_RESPONSE = {
   },
 };
 
+export const SAMPLE_TX_ID =
+  '6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799';
+
 export const SAMPLE_TRANSACTION = {
   version: 1,
   lock_time: 0,
@@ -100,3 +103,45 @@ export const SAMPLE_OUTPUT = {
   value: 5000000000,
   script_pubkey: '76a914...',
 };
+
+export const SAMPLE_INSCRIPTION = {
+  address: 'bc1ppth27qnr74qhusy9pmcyeaelgvsfky6qzquv9nf56gqmte59vfhqwkqguh',
+  charms: ['vindicated'],
+  children: [
+    '681b5373c03e3f819231afd9227f54101395299c9e58356bda278e2f32bef2cdi0',
+    'b1ef66c2d1a047cbaa6260b74daac43813924378fe08ef8545da4cb79e8fcf00i0',
+  ],
+  content_length: 793,
+  content_type: 'image/png',
+  effective_content_type: 'image/png',
+  fee: 322,
+  height: 767430,
+  id: '6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0',
+  next: '26482871f33f1051f450f2da9af275794c0b5f1c61ebf35e4467fb42c2813403i0',
+  number: 0,
+  parents: [],
+  previous: null,
+  rune: null,
+  sat: null,
+  satpoint:
+    '47c7260764af2ee17aa584d9c035f2e5429aefd96b8016cfe0e3f0bcf04869a3:0:0',
+  timestamp: 1671049920,
+  value: 606,
+};
+
+export const SAMPLE_INSCRIPTIONS_RESPONSE = {
+  ids: [
+    '6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0',
+    '26482871f33f1051f450f2da9af275794c0b5f1c61ebf35e4467fb42c2813403i0',
+  ],
+  more: true,
+  page_index: 0,
+};
+
+export const SAMPLE_INSCRIPTION_ID =
+  '6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0';
+
+export const SAMPLE_CHILD_ID =
+  'ab924ff229beca227bf40221faf492a20b5e2ee4f084524c84a5f98b80fe527fi0';
+
+export const SAMPLE_BLOCK_HEIGHT = 767430;
