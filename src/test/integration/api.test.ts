@@ -9,11 +9,11 @@ import {
 
 describe('API Integration Tests', () => {
   let client: OrdClient;
-  let errorClient: OrdClient;
+  let invalidClient: OrdClient;
 
   beforeAll(() => {
     client = new OrdClient(BASE_URL);
-    errorClient = new OrdClient('https://invalid.api');
+    invalidClient = new OrdClient('https://invalid.api');
   });
 
   describe('getBlock', () => {
@@ -38,7 +38,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        await expect(errorClient.getBlock(0)).rejects.toThrow();
+        await expect(invalidClient.getBlock(0)).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -65,7 +65,9 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        await expect(errorClient.getAddress(SAMPLE_ADDRESS)).rejects.toThrow();
+        await expect(
+          invalidClient.getAddress(SAMPLE_ADDRESS),
+        ).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -84,7 +86,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        await expect(errorClient.getBlockCount()).rejects.toThrow();
+        await expect(invalidClient.getBlockCount()).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -111,7 +113,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        await expect(errorClient.getBlockHashByHeight(0)).rejects.toThrow();
+        await expect(invalidClient.getBlockHashByHeight(0)).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -130,17 +132,17 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        await expect(errorClient.getLatestBlockHash()).rejects.toThrow();
+        await expect(invalidClient.getLatestBlockHash()).rejects.toThrow();
       },
       TIMEOUT,
     );
   });
 
-  describe('getBlockHeight', () => {
+  describe('getLatestBlockHeight', () => {
     test(
       'returns height successfully',
       async () => {
-        const height = await client.getBlockHeight();
+        const height = await client.getLatestBlockHeight();
         expect(height).toBeGreaterThan(0);
       },
       TIMEOUT,
@@ -149,17 +151,17 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        await expect(errorClient.getBlockHeight()).rejects.toThrow();
+        await expect(invalidClient.getLatestBlockHeight()).rejects.toThrow();
       },
       TIMEOUT,
     );
   });
 
-  describe('getBlocks', () => {
+  describe('getLatestBlocks', () => {
     test(
       'returns blocks list successfully',
       async () => {
-        const blocksResponse = await client.getBlocks();
+        const blocksResponse = await client.getLatestBlocks();
 
         expect(typeof blocksResponse.last).toBe('number');
         expect(Array.isArray(blocksResponse.blocks)).toBe(true);
@@ -175,17 +177,17 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        await expect(errorClient.getBlocks()).rejects.toThrow();
+        await expect(invalidClient.getLatestBlocks()).rejects.toThrow();
       },
       TIMEOUT,
     );
   });
 
-  describe('getBlockTime', () => {
+  describe('getLatestBlockTime', () => {
     test(
       'returns timestamp successfully',
       async () => {
-        const time = await client.getBlockTime();
+        const time = await client.getLatestBlockTime();
         expect(time).toBeGreaterThan(0);
       },
       TIMEOUT,
@@ -194,7 +196,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        await expect(errorClient.getBlockTime()).rejects.toThrow();
+        await expect(invalidClient.getLatestBlockTime()).rejects.toThrow();
       },
       TIMEOUT,
     );

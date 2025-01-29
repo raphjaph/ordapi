@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { blockHeight, TransactionSchema } from 'schemas';
+import { TransactionSchema } from 'schemas';
 
 const isHexString = (str: string) => /^[0-9a-fA-F]+$/.test(str);
 
@@ -12,9 +12,9 @@ export const BlockHashSchema = z
   );
 
 export const BlockSchema = z.object({
-  best_height: blockHeight,
+  best_height: z.number().int().nonnegative(),
   hash: BlockHashSchema,
-  height: blockHeight,
+  height: z.number().int().nonnegative(),
   inscriptions: z.array(z.string()),
   runes: z.array(z.string()),
   target: z.string(),
@@ -22,7 +22,7 @@ export const BlockSchema = z.object({
 });
 
 export const BlocksResponseSchema = z.object({
-  last: blockHeight,
+  last: z.number().int().nonnegative(),
   blocks: z.array(BlockHashSchema),
   featured_blocks: z.record(BlockHashSchema, z.array(z.string())),
 });

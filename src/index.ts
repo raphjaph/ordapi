@@ -75,15 +75,15 @@ export class OrdClient {
     return this.fetch(endpoints.blockhashLatest, BlockHashSchema);
   }
 
-  async getBlockHeight(): Promise<number> {
+  async getLatestBlockHeight(): Promise<number> {
     return this.fetch(endpoints.blockheight, z.number().int().nonnegative());
   }
 
-  async getBlocks(): Promise<BlocksResponse> {
+  async getLatestBlocks(): Promise<BlocksResponse> {
     return this.fetch(endpoints.blocks, BlocksResponseSchema);
   }
 
-  async getBlockTime(): Promise<number> {
+  async getLatestBlockTime(): Promise<number> {
     return this.fetch(endpoints.blocktime, z.number().int());
   }
 }

@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { satoshi } from 'schemas';
 
 export const InputSchema = z.object({
   previous_output: z.string(),
@@ -9,7 +8,7 @@ export const InputSchema = z.object({
 });
 
 export const OutputSchema = z.object({
-  value: satoshi,
+  value: z.number().int().nonnegative(),
   script_pubkey: z.string(),
 });
 
