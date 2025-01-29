@@ -8,10 +8,15 @@
   "files": ["dist"],
   "scripts": {
     "build": "bun build ./src/index.ts --outdir ./dist --target node",
-    "test": "bun test",
+    "test": "bun test ./src/test/**/*.test.ts",
     "format": "prettier --write 'src/**/*.ts'",
     "lint": "eslint . && tsc -b",
     "prepublishOnly": "bun run build"
+  },
+  "imports": {
+    "#src/*": "./src/*",
+    "#schemas/*": "./src/schemas/*",
+    "#types/*": "./src/types/*"
   },
   "dependencies": {
     "typescript-eslint": "^8.22.0",
