@@ -3,17 +3,39 @@
 Simple TypeScript client for `ord` API.
 See the [docs](https://docs.ordinals.com/guides/api).
 
-## Usage
+## Installation
+
+Using npm:
 
 ```bash
-npm install ordapi
+$ npm install ordapi
 ```
 
-```jsx
-import { OrdClient } from 'ordapi';
+Using yarn:
+
+```bash
+$ yarn add ordapi
+```
+
+Using pnpm:
+
+```bash
+$ pnpm add ordapi
+```
+
+Using bun:
+
+```bash
+$ bun add ordapi
+```
+
+## Usage
+
+```typescript
+import { OrdClient, Block } from 'ordapi';
 
 function App() {
-  const [blockInfo, setBlockInfo] = useState(null);
+  const [blockInfo, setBlockInfo] = useState<Block | null>(null);
 
   useEffect(() => {
     // Create client instance
