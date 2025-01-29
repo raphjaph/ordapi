@@ -1,6 +1,6 @@
 {
   "name": "ordapi",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "module": "dist/index.js",
   "type": "module",
   "main": "dist/index.js",
