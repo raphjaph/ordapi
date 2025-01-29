@@ -39,7 +39,7 @@ function App() {
 
   useEffect(() => {
     // Create client instance
-    const client = new OrdClient('https://your-ordinals-server.xyz');
+    const client = new OrdClient('https://your-ord-server.xyz');
 
     // Fetch genesis block info
     async function fetchBlock() {
