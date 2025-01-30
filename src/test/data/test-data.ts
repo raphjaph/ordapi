@@ -51,7 +51,7 @@ export const SAMPLE_ADDRESS_INFO = {
     ['GREED•FRAGMENTS', '417', '∞'],
     ['LIQUIDIUM•TOKEN', '117.42', '🫠'],
     ['EPIC•EPIC•EPIC•EPIC', '20000', '💥'],
-  ]
+  ],
 };
 
 export const SAMPLE_RUNE_BALANCE = ['TEST•RUNE', '100', '🎯'];
@@ -75,7 +75,7 @@ export const SAMPLE_OUTPOINT_A =
 
 export const SAMPLE_OUTPOINT_B =
   '85abae61cf0f7f90efc67ab5059e6ee3e600c3015ea68e9b33e945d8555766ed:100';
-  
+
 export const SAMPLE_BTC_ADDRESS = '358mMRwcxuCSkKheuVWaXHJBGKrXo3f6JW';
 
 export const SAMPLE_TX_ID =

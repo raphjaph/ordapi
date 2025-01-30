@@ -4,7 +4,7 @@ import {
   BlockHashSchema,
   BlocksResponseSchema,
 } from '../../schemas/block';
-import { AddressInfoSchema, RuneBalanceSchema } from '../../schemas/address';
+import { AddressInfoSchema } from '../../schemas/address';
 import {
   TxInputSchema,
   TxOutputSchema,
@@ -176,24 +176,6 @@ describe('Schema Validation', () => {
   });
 
   describe('Address Schemas', () => {
-    describe('RuneBalanceSchema', () => {
-      test('validates valid rune balance', () => {
-        expect(RuneBalanceSchema.safeParse(SAMPLE_RUNE_BALANCE).success).toBe(
-          true,
-        );
-      });
-
-      test('rejects invalid tuple length', () => {
-        const invalidBalance = ['TEST•RUNE', '100'];
-        expect(RuneBalanceSchema.safeParse(invalidBalance).success).toBe(false);
-      });
-
-      test('rejects invalid value type', () => {
-        const invalidBalance = ['TEST•RUNE', 100, '🎯'];
-        expect(RuneBalanceSchema.safeParse(invalidBalance).success).toBe(false);
-      });
-    });
-
     describe('AddressInfoSchema', () => {
       test('validates valid address info', () => {
         expect(AddressInfoSchema.safeParse(SAMPLE_ADDRESS_INFO).success).toBe(

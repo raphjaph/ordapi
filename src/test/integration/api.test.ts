@@ -558,9 +558,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        await expect(
-          invalidClient.getRunesByPage(1),
-        ).rejects.toThrow();
+        await expect(invalidClient.getRunesByPage(1)).rejects.toThrow();
       },
       TIMEOUT,
     );
