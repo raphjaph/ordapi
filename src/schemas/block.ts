@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { TransactionSchema } from 'schemas';
+import { TxSchema } from './transaction';
 
 const isHexString = (str: string) => /^[0-9a-fA-F]+$/.test(str);
 
@@ -18,7 +18,7 @@ export const BlockSchema = z.object({
   inscriptions: z.array(z.string()),
   runes: z.array(z.string()),
   target: z.string(),
-  transactions: z.array(TransactionSchema),
+  transactions: z.array(TxSchema),
 });
 
 export const BlocksResponseSchema = z.object({

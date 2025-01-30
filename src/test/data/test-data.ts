@@ -30,7 +30,7 @@ export const GENESIS_BLOCK = {
   ],
 };
 
-export const SAMPLE_ADDRESS =
+export const SAMPLE_ORDINALS_ADDRESS =
   'bc1pyy0ttst33sgv9vx0jnqueca7vsqqupwu2t38l43pfgpwjrqvdddsq73hzp';
 
 export const SAMPLE_ADDRESS_INFO = {
@@ -51,7 +51,7 @@ export const SAMPLE_ADDRESS_INFO = {
     ['GREED•FRAGMENTS', '417', '∞'],
     ['LIQUIDIUM•TOKEN', '117.42', '🫠'],
     ['EPIC•EPIC•EPIC•EPIC', '20000', '💥'],
-  ],
+  ]
 };
 
 export const SAMPLE_RUNE_BALANCE = ['TEST•RUNE', '100', '🎯'];
@@ -69,6 +69,14 @@ export const SAMPLE_BLOCKS_RESPONSE = {
     ],
   },
 };
+
+export const SAMPLE_OUTPOINT_A =
+  'e553c4f6742ec65893611778a2f90305ac6be25f84771f505366b729a179af8c:0';
+
+export const SAMPLE_OUTPOINT_B =
+  '85abae61cf0f7f90efc67ab5059e6ee3e600c3015ea68e9b33e945d8555766ed:100';
+  
+export const SAMPLE_BTC_ADDRESS = '358mMRwcxuCSkKheuVWaXHJBGKrXo3f6JW';
 
 export const SAMPLE_TX_ID =
   '6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799';
@@ -111,6 +119,7 @@ export const SAMPLE_INSCRIPTION = {
     '681b5373c03e3f819231afd9227f54101395299c9e58356bda278e2f32bef2cdi0',
     'b1ef66c2d1a047cbaa6260b74daac43813924378fe08ef8545da4cb79e8fcf00i0',
   ],
+  children_count: 2,
   content_length: 793,
   content_type: 'image/png',
   effective_content_type: 'image/png',
@@ -119,14 +128,15 @@ export const SAMPLE_INSCRIPTION = {
   id: '6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0',
   next: '26482871f33f1051f450f2da9af275794c0b5f1c61ebf35e4467fb42c2813403i0',
   number: 0,
-  parents: [],
-  previous: null,
-  rune: null,
-  sat: null,
+  parents: ['parent1', 'parent2'],
+  previous: 'prev-inscription-id',
+  rune: 'SOME•RUNE',
+  sat: 5000000000,
   satpoint:
     '47c7260764af2ee17aa584d9c035f2e5429aefd96b8016cfe0e3f0bcf04869a3:0:0',
   timestamp: 1671049920,
   value: 606,
+  metaprotocol: 'protocol-name',
 };
 
 export const SAMPLE_INSCRIPTIONS_RESPONSE = {
@@ -145,3 +155,95 @@ export const SAMPLE_CHILD_ID =
   'ab924ff229beca227bf40221faf492a20b5e2ee4f084524c84a5f98b80fe527fi0';
 
 export const SAMPLE_BLOCK_HEIGHT = 767430;
+
+export const SAMPLE_UTXO_INFO = {
+  address: 'bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4',
+  indexed: true,
+  inscriptions: [
+    '6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0',
+  ],
+  outpoint:
+    '6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799:0',
+  runes: {
+    'TEST•RUNE': {
+      amount: 1000,
+      divisibility: 0,
+      symbol: '🎯',
+    },
+  },
+  sat_ranges: [[0, 100]],
+  script_pubkey: '0014751e76e8199196d454941c45d1b3a323f1433bd6',
+  spent: false,
+  transaction:
+    '6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799',
+  value: 100000000,
+};
+
+export const SAMPLE_RUNE = {
+  block: 840000,
+  burned: 0,
+  divisibility: 0,
+  etching: '6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0',
+  mints: 1,
+  number: 100,
+  premine: 1000,
+  spaced_rune: 'TEST•RUNE',
+  symbol: '🎯',
+  terms: {
+    amount: 100,
+    cap: 1000,
+    height: [840000, 850000],
+    offset: [1000, 9000],
+  },
+  timestamp: 1677654321,
+  turbo: false,
+};
+
+export const SAMPLE_RUNE_NAME = 'MEMENTO•MORI';
+
+export const SAMPLE_SAT_NUMBER = 2099994106992659;
+
+export const SAMPLE_SAT = {
+  block: 1000,
+  charms: ['uncommon', 'cursed'],
+  cycle: 0,
+  decimal: '1000.0',
+  degree: '0°1′0″0‴',
+  epoch: 0,
+  inscriptions: [],
+  name: 'nvtdijuwxlp',
+  number: 2099994106992659,
+  offset: 0,
+  percentile: '99.99%',
+  period: 0,
+  rarity: 'uncommon',
+  satpoint: null,
+  timestamp: 1231006505,
+};
+
+export const SAMPLE_STATUS = {
+  address_index: true,
+  blessed_inscriptions: 83938677,
+  chain: 'mainnet',
+  cursed_inscriptions: 472043,
+  height: 881492,
+  initial_sync_time: {
+    secs: 78661,
+    nanos: 442762000,
+  },
+  inscription_index: true,
+  inscriptions: 84410720,
+  json_api: true,
+  lost_sats: 2895502904,
+  minimum_rune_for_next_block: 'QJDUTCPVQI',
+  rune_index: true,
+  runes: 170685,
+  sat_index: true,
+  started: '2025-01-27T22:21:24.022870640Z',
+  transaction_index: false,
+  unrecoverably_reorged: false,
+  uptime: {
+    secs: 225097,
+    nanos: 72225343,
+  },
+};

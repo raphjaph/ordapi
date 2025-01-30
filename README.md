@@ -29,17 +29,39 @@ Using bun:
 $ bun add ordapi
 ```
 
+## Import
+
+Import the client and types depending on your needs:
+
+```typescript
+// Using default import
+import OrdClient from 'ordapi';
+
+const client = new OrdClient('https://ord-server.com');
+const block = await client.getBlock(0);
+```
+
+```typescript
+// Using both client and types
+import OrdClient, { Inscription } from 'ordapi';
+
+async function getInscription(id: string): Promise<Inscription> {
+  const client = new OrdClient('https://ord-server.com');
+  return await client.getInscription(id);
+}
+```
+
 ## Usage
 
 ```typescript
-import { OrdClient, Block } from 'ordapi';
+import OrdClient, { Block } from 'ordapi';
 
 function App() {
   const [blockInfo, setBlockInfo] = useState<Block | null>(null);
 
   useEffect(() => {
     // Create client instance
-    const client = new OrdClient('https://your-ord-server.xyz');
+    const client = new OrdClient('https://ord-server.xyz');
 
     // Fetch genesis block info
     async function fetchBlock() {
@@ -57,9 +79,13 @@ function App() {
   return (
     <div>
       <h1>Genesis Block</h1>
-      <p>Height: {blockInfo.height}</p>
-      <p>Hash: {blockInfo.hash}</p>
-      <p>Number of transactions: {blockInfo.transactions.length}</p>
+      {blockInfo && (
+        <>
+          <p>Height: {blockInfo.height}</p>
+          <p>Hash: {blockInfo.hash}</p>
+          <p>Number of transactions: {blockInfo.transactions.length}</p>
+        </>
+      )}
     </div>
   );
 }
