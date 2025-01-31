@@ -18,3 +18,11 @@ export const TransactionSchema = z.object({
   input: z.array(InputSchema),
   output: z.array(OutputSchema),
 });
+
+export const TransactionInfoSchema = z.object({
+  chain: z.string(),
+  etching: z.string().nullable(),
+  inscription_count: z.number().int().nonnegative(),
+  transaction: TransactionSchema,
+  txid: z.string(),
+});
