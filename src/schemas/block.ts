@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { TxSchema } from './transaction';
+import { TransactionSchema } from './transaction';
 
 const isHexString = (str: string) => /^[0-9a-fA-F]+$/.test(str);
 
@@ -11,14 +11,14 @@ export const BlockHashSchema = z
     'Block hash must contain only hexadecimal characters (0-9, a-f, A-F)',
   );
 
-export const BlockSchema = z.object({
+export const BlockInfoSchema = z.object({
   best_height: z.number().int().nonnegative(),
   hash: BlockHashSchema,
   height: z.number().int().nonnegative(),
   inscriptions: z.array(z.string()),
   runes: z.array(z.string()),
   target: z.string(),
-  transactions: z.array(TxSchema),
+  transactions: z.array(TransactionSchema),
 });
 
 export const BlocksResponseSchema = z.object({

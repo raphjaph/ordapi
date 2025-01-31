@@ -1,18 +1,18 @@
 import { z } from 'zod';
 import api from './api';
 import {
-  BlockSchema,
+  BlockInfoSchema,
   BlockHashSchema,
   AddressInfoSchema,
   BlocksResponseSchema,
   InscriptionSchema,
   InscriptionsResponseSchema,
-  OutputSchema,
+  OutputInfoSchema,
   RuneResponseSchema,
   RunesResponseSchema,
   SatSchema,
-  StatusSchema,
-  TxDetailsSchema,
+  ServerStatusSchema,
+  TransactionInfoSchema,
 } from './schemas';
 import type {
   BlockInfo,
@@ -26,7 +26,7 @@ import type {
   RunesResponse,
   SatInfo,
   TransactionInfo,
-  Status,
+  ServerStatus,
   OutputType,
 } from './types';
 
@@ -110,7 +110,7 @@ export class OrdClient {
   }
 
   async getBlock(heightOrHash: number | BlockHash): Promise<BlockInfo> {
-    return this.fetch(api.block(heightOrHash), BlockSchema);
+    return this.fetch(api.block(heightOrHash), BlockInfoSchema);
   }
 
   async getBlockCount(): Promise<number> {
@@ -175,11 +175,11 @@ export class OrdClient {
   }
 
   async getOutput(outpoint: string): Promise<OutputInfo> {
-    return this.fetch(api.output(outpoint), OutputSchema);
+    return this.fetch(api.output(outpoint), OutputInfoSchema);
   }
 
   async getOutputs(outpoints: string[]): Promise<OutputInfo[]> {
-    return this.fetchPost(api.outputs.base, outpoints, z.array(OutputSchema));
+    return this.fetchPost(api.outputs.base, outpoints, z.array(OutputInfoSchema));
   }
 
   async getOutputsByAddress(
@@ -188,7 +188,7 @@ export class OrdClient {
   ): Promise<OutputInfo[]> {
     return this.fetch(
       api.outputs.byAddress(address, type),
-      z.array(OutputSchema),
+      z.array(OutputInfoSchema),
     );
   }
 
@@ -208,11 +208,11 @@ export class OrdClient {
     return this.fetch(api.sat(number), SatSchema);
   }
 
-  async getTx(txId: string): Promise<TransactionInfo> {
-    return this.fetch(api.tx(txId), TxDetailsSchema);
+  async getTransaction(txId: string): Promise<TransactionInfo> {
+    return this.fetch(api.tx(txId), TransactionInfoSchema);
   }
 
-  async getStatus(): Promise<Status> {
-    return this.fetch(api.status, StatusSchema);
+  async getServerStatus(): Promise<ServerStatus> {
+    return this.fetch(api.status, ServerStatusSchema);
   }
 }

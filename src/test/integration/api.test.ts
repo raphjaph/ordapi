@@ -599,7 +599,7 @@ describe('API Integration Tests', () => {
     test(
       'fetches transaction successfully',
       async () => {
-        const tx = await client.getTx(SAMPLE_TX_ID);
+        const tx = await client.getTransaction(SAMPLE_TX_ID);
         expect(tx.txid).toBe(SAMPLE_TX_ID);
         expect(Array.isArray(tx.transaction.input)).toBe(true);
         expect(Array.isArray(tx.transaction.output)).toBe(true);
@@ -611,7 +611,7 @@ describe('API Integration Tests', () => {
     test(
       'rejects invalid transaction id',
       async () => {
-        await expect(client.getTx('invalid-txid')).rejects.toThrow();
+         expect(client.getTransaction('invalid-txid')).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -619,7 +619,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        await expect(invalidClient.getTx(SAMPLE_TX_ID)).rejects.toThrow();
+        expect(invalidClient.getTransaction(SAMPLE_TX_ID)).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -628,7 +628,7 @@ describe('API Integration Tests', () => {
   test(
     'fetches status successfully',
     async () => {
-      const status = await client.getStatus();
+      const status = await client.getServerStatus();
       expect(typeof status.height).toBe('number');
       expect(status.height).toBeGreaterThan(0);
       expect(typeof status.chain).toBe('string');
@@ -647,7 +647,7 @@ describe('API Integration Tests', () => {
   test(
     'handles server error',
     async () => {
-      await expect(invalidClient.getStatus()).rejects.toThrow();
+      expect(invalidClient.getServerStatus()).rejects.toThrow();
     },
     TIMEOUT,
   );

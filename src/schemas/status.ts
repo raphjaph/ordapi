@@ -5,7 +5,7 @@ const TimeSchema = z.object({
   nanos: z.number().int().nonnegative(),
 });
 
-export const StatusSchema = z.object({
+export const ServerStatusSchema = z.object({
   address_index: z.boolean(),
   blessed_inscriptions: z.number().int().nonnegative(),
   chain: z.string(),

@@ -18,7 +18,7 @@ const RuneSchema = z.object({
   symbol: z.string(),
 });
 
-export const OutputSchema = z.object({
+export const OutputInfoSchema = z.object({
   address: z.string(),
   indexed: z.boolean(),
   inscriptions: z.array(z.string()),

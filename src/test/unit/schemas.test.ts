@@ -1,23 +1,23 @@
 import { expect, test, describe } from 'bun:test';
 import {
-  BlockSchema,
+  BlockInfoSchema,
   BlockHashSchema,
   BlocksResponseSchema,
 } from '../../schemas/block';
 import { AddressInfoSchema } from '../../schemas/address';
 import {
-  TxInputSchema,
-  TxOutputSchema,
-  TxSchema,
+  InputSchema,
+  OutputSchema,
+  TransactionSchema,
 } from '../../schemas/transaction';
 import {
   InscriptionSchema,
   InscriptionsResponseSchema,
 } from '../../schemas/inscription';
-import { OutputSchema } from '../../schemas/output';
+import { OutputInfoSchema } from '../../schemas/output';
 import { RuneSchema, RunesResponseSchema } from '../../schemas/rune';
 import { SatSchema } from '../../schemas/sat';
-import { StatusSchema } from '../../schemas/status';
+import { ServerStatusSchema } from '../../schemas/status';
 import {
   GENESIS_BLOCK,
   SAMPLE_ADDRESS_INFO,
@@ -38,7 +38,7 @@ describe('Schema Validation', () => {
   describe('Tx Schemas', () => {
     describe('TxInputSchema', () => {
       test('validates valid input', () => {
-        expect(TxInputSchema.safeParse(SAMPLE_INPUT).success).toBe(true);
+        expect(InputSchema.safeParse(SAMPLE_INPUT).success).toBe(true);
       });
 
       test('rejects invalid sequence', () => {
@@ -46,18 +46,18 @@ describe('Schema Validation', () => {
           ...SAMPLE_INPUT,
           sequence: -1,
         };
-        expect(TxInputSchema.safeParse(invalidTxInput).success).toBe(false);
+        expect(InputSchema.safeParse(invalidTxInput).success).toBe(false);
       });
 
       test('rejects missing field', () => {
         const { script_sig, ...invalidTxInput } = SAMPLE_INPUT;
-        expect(TxInputSchema.safeParse(invalidTxInput).success).toBe(false);
+        expect(InputSchema.safeParse(invalidTxInput).success).toBe(false);
       });
     });
 
     describe('OutputSchema', () => {
       test('validates valid output', () => {
-        expect(TxOutputSchema.safeParse(SAMPLE_OUTPUT).success).toBe(true);
+        expect(OutputSchema.safeParse(SAMPLE_OUTPUT).success).toBe(true);
       });
 
       test('rejects negative value', () => {
@@ -65,18 +65,18 @@ describe('Schema Validation', () => {
           ...SAMPLE_OUTPUT,
           value: -5000000000,
         };
-        expect(TxOutputSchema.safeParse(invalidOutput).success).toBe(false);
+        expect(OutputSchema.safeParse(invalidOutput).success).toBe(false);
       });
 
       test('rejects missing script_pubkey', () => {
         const { script_pubkey, ...invalidOutput } = SAMPLE_OUTPUT;
-        expect(TxOutputSchema.safeParse(invalidOutput).success).toBe(false);
+        expect(OutputSchema.safeParse(invalidOutput).success).toBe(false);
       });
     });
 
     describe('TxSchema', () => {
       test('validates valid transaction', () => {
-        expect(TxSchema.safeParse(SAMPLE_TRANSACTION).success).toBe(true);
+        expect(TransactionSchema.safeParse(SAMPLE_TRANSACTION).success).toBe(true);
       });
 
       test('rejects invalid version', () => {
@@ -84,7 +84,7 @@ describe('Schema Validation', () => {
           ...SAMPLE_TRANSACTION,
           version: -1,
         };
-        expect(TxSchema.safeParse(invalidTx).success).toBe(false);
+        expect(TransactionSchema.safeParse(invalidTx).success).toBe(false);
       });
 
       test('rejects invalid input array', () => {
@@ -92,7 +92,7 @@ describe('Schema Validation', () => {
           ...SAMPLE_TRANSACTION,
           input: [{ invalid: 'data' }],
         };
-        expect(TxSchema.safeParse(invalidTx).success).toBe(false);
+        expect(TransactionSchema.safeParse(invalidTx).success).toBe(false);
       });
     });
   });
@@ -146,7 +146,7 @@ describe('Schema Validation', () => {
 
     describe('BlockSchema', () => {
       test('validates valid block', () => {
-        expect(BlockSchema.safeParse(GENESIS_BLOCK).success).toBe(true);
+        expect(BlockInfoSchema.safeParse(GENESIS_BLOCK).success).toBe(true);
       });
 
       test('rejects invalid block height type', () => {
@@ -154,7 +154,7 @@ describe('Schema Validation', () => {
           ...GENESIS_BLOCK,
           best_height: '864325',
         };
-        expect(BlockSchema.safeParse(invalidBlock).success).toBe(false);
+        expect(BlockInfoSchema.safeParse(invalidBlock).success).toBe(false);
       });
 
       test('rejects invalid block hash', () => {
@@ -162,7 +162,7 @@ describe('Schema Validation', () => {
           ...GENESIS_BLOCK,
           hash: 'invalid_hash',
         };
-        expect(BlockSchema.safeParse(invalidBlock).success).toBe(false);
+        expect(BlockInfoSchema.safeParse(invalidBlock).success).toBe(false);
       });
 
       test('rejects negative height', () => {
@@ -170,7 +170,7 @@ describe('Schema Validation', () => {
           ...GENESIS_BLOCK,
           height: -1,
         };
-        expect(BlockSchema.safeParse(invalidBlock).success).toBe(false);
+        expect(BlockInfoSchema.safeParse(invalidBlock).success).toBe(false);
       });
     });
   });
@@ -293,10 +293,10 @@ describe('Schema Validation', () => {
     });
   });
 
-  describe('Output Schemas', () => {
-    describe('OutputSchema', () => {
+  describe('Output Info Schemas', () => {
+    describe('OutputInfoSchema', () => {
       test('validates valid output', () => {
-        const result = OutputSchema.safeParse(SAMPLE_UTXO_INFO);
+        const result = OutputInfoSchema.safeParse(SAMPLE_UTXO_INFO);
         expect(result.success).toBe(true);
       });
 
@@ -305,13 +305,13 @@ describe('Schema Validation', () => {
           ...SAMPLE_UTXO_INFO,
           value: -1,
         };
-        const result = OutputSchema.safeParse(invalidOutput);
+        const result = OutputInfoSchema.safeParse(invalidOutput);
         expect(result.success).toBe(false);
       });
 
       test('validates without optional fields', () => {
         const { runes, ...minimalOutput } = SAMPLE_UTXO_INFO;
-        const result = OutputSchema.safeParse(minimalOutput);
+        const result = OutputInfoSchema.safeParse(minimalOutput);
         expect(result.success).toBe(true);
       });
 
@@ -322,7 +322,7 @@ describe('Schema Validation', () => {
           runes: {},
           sat_ranges: null,
         };
-        const result = OutputSchema.safeParse(minimalOutput);
+        const result = OutputInfoSchema.safeParse(minimalOutput);
         expect(result.success).toBe(true);
       });
 
@@ -333,7 +333,7 @@ describe('Schema Validation', () => {
           runes: -1,
           sat_ranges: [[0]],
         };
-        const result = OutputSchema.safeParse(invalidOutput);
+        const result = OutputInfoSchema.safeParse(invalidOutput);
         expect(result.success).toBe(false);
       });
 
@@ -342,7 +342,7 @@ describe('Schema Validation', () => {
           ...SAMPLE_UTXO_INFO,
           sat_ranges: [[0]],
         };
-        const result = OutputSchema.safeParse(invalidOutput);
+        const result = OutputInfoSchema.safeParse(invalidOutput);
         expect(result.success).toBe(false);
       });
     });
@@ -447,9 +447,9 @@ describe('Schema Validation', () => {
   });
 
   describe('Status Schema', () => {
-    describe('StatusSchema', () => {
+    describe('ServerStatusSchema', () => {
       test('validates valid status', () => {
-        const result = StatusSchema.safeParse(SAMPLE_STATUS);
+        const result = ServerStatusSchema.safeParse(SAMPLE_STATUS);
         expect(result.success).toBe(true);
       });
 
@@ -458,7 +458,7 @@ describe('Schema Validation', () => {
           ...SAMPLE_STATUS,
           minimum_rune_for_next_block: null,
         };
-        const result = StatusSchema.safeParse(statusWithNullRune);
+        const result = ServerStatusSchema.safeParse(statusWithNullRune);
         expect(result.success).toBe(true);
       });
 
@@ -468,7 +468,7 @@ describe('Schema Validation', () => {
           initial_sync_time: { secs: 0, nanos: 0 },
           uptime: { secs: 0, nanos: 0 },
         };
-        const result = StatusSchema.safeParse(statusWithMinimalTime);
+        const result = ServerStatusSchema.safeParse(statusWithMinimalTime);
         expect(result.success).toBe(true);
       });
 
@@ -479,7 +479,7 @@ describe('Schema Validation', () => {
           inscriptions: -1,
           lost_sats: -1,
         };
-        const result = StatusSchema.safeParse(statusWithNegatives);
+        const result = ServerStatusSchema.safeParse(statusWithNegatives);
         expect(result.success).toBe(false);
       });
 
@@ -488,7 +488,7 @@ describe('Schema Validation', () => {
           ...SAMPLE_STATUS,
           initial_sync_time: { secs: -1, nanos: -1 },
         };
-        const result = StatusSchema.safeParse(statusWithInvalidTime);
+        const result = ServerStatusSchema.safeParse(statusWithInvalidTime);
         expect(result.success).toBe(false);
       });
     });
