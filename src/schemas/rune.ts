@@ -5,7 +5,7 @@ export const RuneTermsSchema = z.object({
   cap: z.number().int().nonnegative(),
   height: z.tuple([z.number().int().nullable(), z.number().int().nullable()]),
   offset: z.tuple([z.number().int().nullable(), z.number().int().nullable()]),
-});
+}).nullable();
 
 export const RuneSchema = z.object({
   block: z.number().int().nonnegative(),
