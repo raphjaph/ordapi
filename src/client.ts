@@ -179,7 +179,11 @@ export class OrdClient {
   }
 
   async getOutputs(outpoints: string[]): Promise<OutputInfo[]> {
-    return this.fetchPost(api.outputs.base, outpoints, z.array(OutputInfoSchema));
+    return this.fetchPost(
+      api.outputs.base,
+      outpoints,
+      z.array(OutputInfoSchema),
+    );
   }
 
   async getOutputsByAddress(

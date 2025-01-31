@@ -611,7 +611,7 @@ describe('API Integration Tests', () => {
     test(
       'rejects invalid transaction id',
       async () => {
-         expect(client.getTransaction('invalid-txid')).rejects.toThrow();
+        expect(client.getTransaction('invalid-txid')).rejects.toThrow();
       },
       TIMEOUT,
     );

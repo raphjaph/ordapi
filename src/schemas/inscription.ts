@@ -20,7 +20,7 @@ export const CharmSchema = z.enum([
 export const InscriptionSchema = z.object({
   address: z.string().nullable(),
   charms: z.array(CharmSchema),
-  children_count: z.number().int().nonnegative().nullable().optional(),
+  child_count: z.number().int().nonnegative(),
   children: z.array(z.string()),
   content_length: z.number().int().nonnegative(),
   content_type: z.string(),
@@ -37,7 +37,7 @@ export const InscriptionSchema = z.object({
   satpoint: z.string(),
   timestamp: z.number().int(),
   value: z.number().int().nonnegative(),
-  metaprotocol: z.string().nullable().optional(),
+  metaprotocol: z.string().nullable(),
 });
 
 export const InscriptionsResponseSchema = z.object({

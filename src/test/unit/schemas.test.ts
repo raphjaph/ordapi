@@ -76,7 +76,9 @@ describe('Schema Validation', () => {
 
     describe('TxSchema', () => {
       test('validates valid transaction', () => {
-        expect(TransactionSchema.safeParse(SAMPLE_TRANSACTION).success).toBe(true);
+        expect(TransactionSchema.safeParse(SAMPLE_TRANSACTION).success).toBe(
+          true,
+        );
       });
 
       test('rejects invalid version', () => {
@@ -254,13 +256,6 @@ describe('Schema Validation', () => {
         expect(result.success).toBe(true);
       });
 
-      test('validates without optional fields', () => {
-        const { children_count, metaprotocol, ...minimalInscription } =
-          SAMPLE_INSCRIPTION;
-        const result = InscriptionSchema.safeParse(minimalInscription);
-        expect(result.success).toBe(true);
-      });
-
       test('rejects negative values', () => {
         const inscriptionWithNegatives = {
           ...SAMPLE_INSCRIPTION,
@@ -307,12 +302,6 @@ describe('Schema Validation', () => {
         };
         const result = OutputInfoSchema.safeParse(invalidOutput);
         expect(result.success).toBe(false);
-      });
-
-      test('validates without optional fields', () => {
-        const { runes, ...minimalOutput } = SAMPLE_UTXO_INFO;
-        const result = OutputInfoSchema.safeParse(minimalOutput);
-        expect(result.success).toBe(true);
       });
 
       test('validates all nullable fields', () => {
@@ -409,6 +398,7 @@ describe('Schema Validation', () => {
       test('validates nullable fields', () => {
         const satWithNullSatpoint = {
           ...SAMPLE_SAT,
+          address: null,
           satpoint: null,
         };
         const result = SatSchema.safeParse(satWithNullSatpoint);

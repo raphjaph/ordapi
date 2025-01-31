@@ -119,7 +119,7 @@ export const SAMPLE_INSCRIPTION = {
     '681b5373c03e3f819231afd9227f54101395299c9e58356bda278e2f32bef2cdi0',
     'b1ef66c2d1a047cbaa6260b74daac43813924378fe08ef8545da4cb79e8fcf00i0',
   ],
-  children_count: 2,
+  child_count: 2,
   content_length: 793,
   content_type: 'image/png',
   effective_content_type: 'image/png',
@@ -204,6 +204,7 @@ export const SAMPLE_RUNE_NAME = 'MEMENTO•MORI';
 export const SAMPLE_SAT_NUMBER = 2099994106992659;
 
 export const SAMPLE_SAT = {
+  address: 'bc1ptest',
   block: 1000,
   charms: ['uncommon', 'cursed'],
   cycle: 0,

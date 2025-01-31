@@ -11,6 +11,7 @@ export const RaritySchema = z.enum([
 ]);
 
 export const SatSchema = z.object({
+  address: z.string().nullable(),
   block: z.number().int().nonnegative(),
   charms: z.array(CharmSchema),
   cycle: z.number().int().nonnegative(),

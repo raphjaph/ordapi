@@ -19,11 +19,11 @@ const RuneSchema = z.object({
 });
 
 export const OutputInfoSchema = z.object({
-  address: z.string(),
+  address: z.string().nullable(),
   indexed: z.boolean(),
-  inscriptions: z.array(z.string()),
+  inscriptions: z.array(z.string()).nullable(),
   outpoint: z.string(),
-  runes: z.record(z.string(), RuneSchema).optional(),
+  runes: z.record(z.string(), RuneSchema).nullable(),
   sat_ranges: z.array(SatRangeSchema).nullable(),
   script_pubkey: z.string(),
   spent: z.boolean(),
