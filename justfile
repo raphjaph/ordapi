@@ -13,6 +13,9 @@ fmt: install
 lint: install
   bun run lint
 
+docs:
+  bun run docs
+
 ci: install lint test
 
 publish:

@@ -18,7 +18,6 @@
     "test": "bun test ./src/test/**/*.test.ts",
     "format": "prettier --write 'src/**/*.ts'",
     "lint": "eslint . && tsc -b",
-    "prepublishOnly": "bun run build",
     "docs:generate": "bun run docs/generate.ts",
     "docs:html": "bun run docs/generateHtml.ts",
     "docs:serve": "bun run docs/serveDocs.ts",
