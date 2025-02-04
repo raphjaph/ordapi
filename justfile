@@ -18,5 +18,14 @@ docs:
 
 ci: install lint test
 
+prepare-changelog revision='master':
+  #!/usr/bin/env bash
+  set -euxo pipefail
+  git checkout {{ revision }}
+  git pull origin {{ revision }}
+  echo >> CHANGELOG.md
+  git log --pretty='format:- %s' >> CHANGELOG.md
+  $EDITOR CHANGELOG.md
+
 publish:
   bun publish

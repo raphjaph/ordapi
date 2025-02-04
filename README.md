@@ -95,3 +95,10 @@ function App() {
   );
 }
 ```
+
+### Publish release
+
+- update `package.json` version
+- update version in `docs/generateHtml.ts`
+- update all dependencies (`bun update`)
+- prepare the CHANGELOG

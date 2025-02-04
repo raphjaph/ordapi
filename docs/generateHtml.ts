@@ -120,7 +120,7 @@ function generateHtml() {
             <div class="flex flex-col gap-2">
                 <div class="flex justify-between items-center">
                     <div>
-                        <h1 class="text-2xl font-bold">OrdAPI v0.0.2</h1>
+                        <h1 class="text-2xl font-bold">OrdAPI v0.0.3</h1>
                         <p class="text-green-400 mt-1">Simple TypeScript client for ord API.</p>
                     </div>
                     <div class="flex gap-4">
