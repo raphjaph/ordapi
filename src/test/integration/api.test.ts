@@ -39,7 +39,7 @@ describe('API Integration Tests', () => {
     test(
       'rejects negative block height',
       async () => {
-        await expect(client.getBlock(-1)).rejects.toThrow();
+        expect(client.getBlock(-1)).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -47,7 +47,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        await expect(invalidClient.getBlock(0)).rejects.toThrow();
+        expect(invalidClient.getBlock(0)).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -66,9 +66,7 @@ describe('API Integration Tests', () => {
     test(
       'rejects invalid address format',
       async () => {
-        await expect(
-          client.getAddressInfo('invalid-address'),
-        ).rejects.toThrow();
+        expect(client.getAddressInfo('invalid-address')).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -76,7 +74,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        await expect(
+        expect(
           invalidClient.getAddressInfo(SAMPLE_ORDINALS_ADDRESS),
         ).rejects.toThrow();
       },
@@ -97,7 +95,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        await expect(invalidClient.getBlockCount()).rejects.toThrow();
+        expect(invalidClient.getBlockCount()).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -116,7 +114,7 @@ describe('API Integration Tests', () => {
     test(
       'rejects negative height',
       async () => {
-        await expect(client.getBlockHashByHeight(-1)).rejects.toThrow();
+        expect(client.getBlockHashByHeight(-1)).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -124,7 +122,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        await expect(invalidClient.getBlockHashByHeight(0)).rejects.toThrow();
+        expect(invalidClient.getBlockHashByHeight(0)).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -143,7 +141,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        await expect(invalidClient.getLatestBlockHash()).rejects.toThrow();
+        expect(invalidClient.getLatestBlockHash()).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -162,7 +160,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        await expect(invalidClient.getLatestBlockHeight()).rejects.toThrow();
+        expect(invalidClient.getLatestBlockHeight()).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -188,7 +186,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        await expect(invalidClient.getLatestBlocks()).rejects.toThrow();
+        expect(invalidClient.getLatestBlocks()).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -207,7 +205,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        await expect(invalidClient.getLatestBlockTime()).rejects.toThrow();
+        expect(invalidClient.getLatestBlockTime()).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -229,7 +227,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        await expect(
+        expect(
           invalidClient.getInscription(SAMPLE_INSCRIPTION_ID),
         ).rejects.toThrow();
       },
@@ -255,7 +253,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        await expect(
+        expect(
           invalidClient.getInscriptionChild(SAMPLE_INSCRIPTION_ID, 0),
         ).rejects.toThrow();
       },
@@ -279,7 +277,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        await expect(invalidClient.getLatestInscriptions()).rejects.toThrow();
+        expect(invalidClient.getLatestInscriptions()).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -299,7 +297,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        await expect(invalidClient.getInscriptionsByPage(1)).rejects.toThrow();
+        expect(invalidClient.getInscriptionsByPage(1)).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -320,7 +318,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        await expect(
+        expect(
           invalidClient.getInscriptionsByBlock(SAMPLE_BLOCK_HEIGHT),
         ).rejects.toThrow();
       },
@@ -347,7 +345,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        await expect(
+        expect(
           invalidClient.getInscriptionsByIds([SAMPLE_INSCRIPTION_ID]),
         ).rejects.toThrow();
       },
@@ -380,7 +378,7 @@ describe('API Integration Tests', () => {
     test(
       'handles invalid outpoint format',
       async () => {
-        await expect(client.getOutput('invalid-outpoint')).rejects.toThrow();
+        expect(client.getOutput('invalid-outpoint')).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -388,9 +386,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        await expect(
-          invalidClient.getOutput(SAMPLE_OUTPOINT_A),
-        ).rejects.toThrow();
+        expect(invalidClient.getOutput(SAMPLE_OUTPOINT_A)).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -422,7 +418,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        await expect(
+        expect(
           invalidClient.getOutputs([SAMPLE_OUTPOINT_A, SAMPLE_OUTPOINT_B]),
         ).rejects.toThrow();
       },
@@ -458,9 +454,7 @@ describe('API Integration Tests', () => {
     test(
       'handles invalid address',
       async () => {
-        await expect(
-          client.getOutputsByAddress('invalid-address'),
-        ).rejects.toThrow();
+        expect(client.getOutputsByAddress('invalid-address')).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -468,7 +462,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        await expect(
+        expect(
           invalidClient.getOutputsByAddress(SAMPLE_BTC_ADDRESS),
         ).rejects.toThrow();
       },
@@ -491,7 +485,7 @@ describe('API Integration Tests', () => {
     test(
       'handles invalid rune name',
       async () => {
-        await expect(client.getRune('invalid/rune/name')).rejects.toThrow();
+        expect(client.getRune('invalid/rune/name')).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -499,7 +493,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        await expect(invalidClient.getRune(SAMPLE_RUNE_NAME)).rejects.toThrow();
+        expect(invalidClient.getRune(SAMPLE_RUNE_NAME)).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -524,7 +518,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        await expect(invalidClient.getLatestRunes()).rejects.toThrow();
+        expect(invalidClient.getLatestRunes()).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -550,7 +544,7 @@ describe('API Integration Tests', () => {
     test(
       'handles invalid page number',
       async () => {
-        await expect(client.getRunesByPage(-1)).rejects.toThrow();
+        expect(client.getRunesByPage(-1)).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -558,7 +552,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        await expect(invalidClient.getRunesByPage(1)).rejects.toThrow();
+        expect(invalidClient.getRunesByPage(1)).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -581,7 +575,7 @@ describe('API Integration Tests', () => {
     test(
       'rejects negative sat number',
       async () => {
-        await expect(client.getSat(-1)).rejects.toThrow();
+        expect(client.getSat(-1)).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -589,7 +583,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        await expect(invalidClient.getSat(SAMPLE_SAT_NUMBER)).rejects.toThrow();
+        expect(invalidClient.getSat(SAMPLE_SAT_NUMBER)).rejects.toThrow();
       },
       TIMEOUT,
     );
