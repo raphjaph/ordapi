@@ -102,3 +102,5 @@ function App() {
 - update version in `docs/generateHtml.ts`
 - update all dependencies (`bun update`)
 - prepare the CHANGELOG
+- open release PR on github 
+- `bun publish`
