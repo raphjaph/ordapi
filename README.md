@@ -5,7 +5,6 @@
 [![License](https://img.shields.io/npm/l/ordapi.svg)](https://github.com/raphjaph/ordapi/blob/master/LICENSE)
 [![CI Status](https://github.com/raphjaph/ordapi/workflows/CI/badge.svg)](https://github.com/raphjaph/ordapi/actions)
 
-
 Simple TypeScript client for `ord` API.
 See the [docs](https://docs.ordinals.com/guides/api).
 
