@@ -9,7 +9,7 @@ export const RuneTermsSchema = z
   })
   .nullable();
 
-export const RuneSchema = z.object({
+export const RuneInfoSchema = z.object({
   block: z.number().int().nonnegative(),
   burned: z.number().int().nonnegative(),
   divisibility: z.number().int().nonnegative(),
@@ -25,14 +25,14 @@ export const RuneSchema = z.object({
 });
 
 export const RuneResponseSchema = z.object({
-  entry: RuneSchema,
+  entry: RuneInfoSchema,
   id: z.string(),
   mintable: z.boolean(),
   parent: z.string().nullable(),
 });
 
 export const RunesResponseSchema = z.object({
-  entries: z.array(z.tuple([z.string(), RuneSchema])),
+  entries: z.array(z.tuple([z.string(), RuneInfoSchema])),
   more: z.boolean(),
   prev: z.number().nullable(),
   next: z.number().nullable(),

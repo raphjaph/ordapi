@@ -10,7 +10,11 @@
     "test": "bun test ./src/test/**/*.test.ts",
     "format": "prettier --write 'src/**/*.ts'",
     "lint": "eslint . && tsc -b",
-    "prepublishOnly": "bun run build"
+    "prepublishOnly": "bun run build",
+    "docs:generate": "bun run docs/generate.ts",
+    "docs:html": "bun run docs/generateHtml.ts",
+    "docs:serve": "bun run docs/serveDocs.ts",
+    "docs": "bun run docs:generate && bun run docs:html && bun run docs:serve"
   },
   "exports": {
     ".": {
@@ -23,6 +27,10 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "@types/bun": "^1.2.1"
+    "@types/bun": "^1.2.1",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   }
 }
