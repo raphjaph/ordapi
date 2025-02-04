@@ -1,6 +1,7 @@
 {
   "name": "ordapi",
   "version": "0.0.2",
+  "license": "CC0-1.0",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
