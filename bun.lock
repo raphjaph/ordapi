@@ -4,11 +4,11 @@
     "": {
       "name": "ordapi",
       "dependencies": {
-        "typescript-eslint": "^8.22.0",
+        "typescript-eslint": "^8.23.0",
         "zod": "^3.24.1",
       },
       "devDependencies": {
-        "@types/bun": "^1.2.1",
+        "@types/bun": "^1.2.2",
         "@types/react": "^19.0.8",
         "@types/react-dom": "^19.0.3",
         "react": "^19.0.0",
