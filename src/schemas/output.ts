@@ -12,7 +12,7 @@ const SatRangeSchema = z.tuple([
   z.number().int().nonnegative(),
 ]);
 
-const RuneSchema = z.object({
+const RuneInfoSchema = z.object({
   amount: z.number().int().nonnegative(),
   divisibility: z.number().int().nonnegative(),
   symbol: z.string(),
@@ -23,7 +23,7 @@ export const OutputInfoSchema = z.object({
   indexed: z.boolean(),
   inscriptions: z.array(z.string()).nullable(),
   outpoint: z.string(),
-  runes: z.record(z.string(), RuneSchema).nullable(),
+  runes: z.record(z.string(), RuneInfoSchema).nullable(),
   sat_ranges: z.array(SatRangeSchema).nullable(),
   script_pubkey: z.string(),
   spent: z.boolean(),

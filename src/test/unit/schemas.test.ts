@@ -11,12 +11,12 @@ import {
   TransactionSchema,
 } from '../../schemas/transaction';
 import {
-  InscriptionSchema,
+  InscriptionInfoSchema,
   InscriptionsResponseSchema,
 } from '../../schemas/inscription';
 import { OutputInfoSchema } from '../../schemas/output';
-import { RuneSchema, RunesResponseSchema } from '../../schemas/rune';
-import { SatSchema } from '../../schemas/sat';
+import { RuneInfoSchema, RunesResponseSchema } from '../../schemas/rune';
+import { SatInfoSchema } from '../../schemas/sat';
 import { ServerStatusSchema } from '../../schemas/status';
 import {
   GENESIS_BLOCK,
@@ -216,9 +216,9 @@ describe('Schema Validation', () => {
   });
 
   describe('Inscription Schemas', () => {
-    describe('InscriptionSchema', () => {
+    describe('InscriptionInfoSchema', () => {
       test('validates valid inscription', () => {
-        const result = InscriptionSchema.safeParse(SAMPLE_INSCRIPTION);
+        const result = InscriptionInfoSchema.safeParse(SAMPLE_INSCRIPTION);
         expect(result.success).toBe(true);
       });
 
@@ -227,7 +227,7 @@ describe('Schema Validation', () => {
           ...SAMPLE_INSCRIPTION,
           charms: ['invalid_charm'],
         };
-        const result = InscriptionSchema.safeParse(inscriptionWithInvalidCharm);
+        const result = InscriptionInfoSchema.safeParse(inscriptionWithInvalidCharm);
         expect(result.success).toBe(false);
       });
 
@@ -238,7 +238,7 @@ describe('Schema Validation', () => {
           children: [],
           parents: [],
         };
-        const result = InscriptionSchema.safeParse(inscriptionWithEmptyArrays);
+        const result = InscriptionInfoSchema.safeParse(inscriptionWithEmptyArrays);
         expect(result.success).toBe(true);
       });
 
@@ -252,7 +252,7 @@ describe('Schema Validation', () => {
           sat: null,
           metaprotocol: null,
         };
-        const result = InscriptionSchema.safeParse(nullableInscription);
+        const result = InscriptionInfoSchema.safeParse(nullableInscription);
         expect(result.success).toBe(true);
       });
 
@@ -263,7 +263,7 @@ describe('Schema Validation', () => {
           fee: -1,
           value: -1,
         };
-        const result = InscriptionSchema.safeParse(inscriptionWithNegatives);
+        const result = InscriptionInfoSchema.safeParse(inscriptionWithNegatives);
         expect(result.success).toBe(false);
       });
     });
@@ -338,9 +338,9 @@ describe('Schema Validation', () => {
   });
 
   describe('Rune Schemas', () => {
-    describe('RuneSchema', () => {
+    describe('RuneInfoSchema', () => {
       test('validates valid rune', () => {
-        const result = RuneSchema.safeParse(SAMPLE_RUNE);
+        const result = RuneInfoSchema.safeParse(SAMPLE_RUNE);
         expect(result.success).toBe(true);
       });
 
@@ -349,7 +349,7 @@ describe('Schema Validation', () => {
           ...SAMPLE_RUNE,
           symbol: null,
         };
-        const result = RuneSchema.safeParse(runeWithNullSymbol);
+        const result = RuneInfoSchema.safeParse(runeWithNullSymbol);
         expect(result.success).toBe(true);
       });
 
@@ -360,7 +360,7 @@ describe('Schema Validation', () => {
           burned: -1,
           mints: -1,
         };
-        const result = RuneSchema.safeParse(invalidRune);
+        const result = RuneInfoSchema.safeParse(invalidRune);
         expect(result.success).toBe(false);
       });
 
@@ -389,9 +389,9 @@ describe('Schema Validation', () => {
   });
 
   describe('Sat Schema', () => {
-    describe('SatSchema', () => {
+    describe('SatInfoSchema', () => {
       test('validates valid sat', () => {
-        const result = SatSchema.safeParse(SAMPLE_SAT);
+        const result = SatInfoSchema.safeParse(SAMPLE_SAT);
         expect(result.success).toBe(true);
       });
 
@@ -401,7 +401,7 @@ describe('Schema Validation', () => {
           address: null,
           satpoint: null,
         };
-        const result = SatSchema.safeParse(satWithNullSatpoint);
+        const result = SatInfoSchema.safeParse(satWithNullSatpoint);
         expect(result.success).toBe(true);
       });
 
@@ -410,7 +410,7 @@ describe('Schema Validation', () => {
           ...SAMPLE_SAT,
           charms: ['invalid_charm'],
         };
-        const result = SatSchema.safeParse(satWithInvalidCharm);
+        const result = SatInfoSchema.safeParse(satWithInvalidCharm);
         expect(result.success).toBe(false);
       });
 
@@ -419,7 +419,7 @@ describe('Schema Validation', () => {
           ...SAMPLE_SAT,
           rarity: 'invalid_rarity',
         };
-        const result = SatSchema.safeParse(satWithInvalidRarity);
+        const result = SatInfoSchema.safeParse(satWithInvalidRarity);
         expect(result.success).toBe(false);
       });
 
@@ -430,7 +430,7 @@ describe('Schema Validation', () => {
           offset: -1,
           period: -1,
         };
-        const result = SatSchema.safeParse(satWithNegatives);
+        const result = SatInfoSchema.safeParse(satWithNegatives);
         expect(result.success).toBe(false);
       });
     });

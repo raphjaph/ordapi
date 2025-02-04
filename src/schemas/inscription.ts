@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const CharmSchema = z.enum([
+export const CharmTypeSchema = z.enum([
   'burned',
   'coin',
   'cursed',
@@ -17,9 +17,9 @@ export const CharmSchema = z.enum([
   'vindicated',
 ]);
 
-export const InscriptionSchema = z.object({
+export const InscriptionInfoSchema = z.object({
   address: z.string().nullable(),
-  charms: z.array(CharmSchema),
+  charms: z.array(CharmTypeSchema),
   child_count: z.number().int().nonnegative(),
   children: z.array(z.string()),
   content_length: z.number().int().nonnegative().nullable(),
