@@ -8,14 +8,19 @@ import { AddressInfoSchema } from '../../schemas/address';
 import {
   InputSchema,
   OutputSchema,
+  TransactionHexSchema,
   TransactionSchema,
 } from '../../schemas/transaction';
 import {
+  ChildInfoSchema,
+  ChildrenInfoResponseSchema,
+  InscriptionIDSchema,
   InscriptionInfoSchema,
+  InscriptionRecursiveSchema,
   InscriptionsResponseSchema,
 } from '../../schemas/inscription';
-import { OutputInfoSchema } from '../../schemas/output';
-import { RuneInfoSchema, RunesResponseSchema } from '../../schemas/rune';
+import { OutputAssetsSchema, OutputInfoSchema, SatRangeSchema } from '../../schemas/output';
+import { RuneBalanceSchema, RuneInfoSchema, RunesResponseSchema } from '../../schemas/rune';
 import { SatInfoSchema } from '../../schemas/sat';
 import { ServerStatusSchema } from '../../schemas/status';
 import {
@@ -25,7 +30,6 @@ import {
   SAMPLE_TRANSACTION,
   SAMPLE_INPUT,
   SAMPLE_OUTPUT,
-  SAMPLE_RUNE_BALANCE,
   SAMPLE_INSCRIPTION,
   SAMPLE_INSCRIPTIONS_RESPONSE,
   SAMPLE_UTXO_INFO,
@@ -95,6 +99,68 @@ describe('Schema Validation', () => {
           input: [{ invalid: 'data' }],
         };
         expect(TransactionSchema.safeParse(invalidTx).success).toBe(false);
+      });
+    });
+
+    describe('TransactionHexSchema', () => {
+      test('validates valid hex string', () => {
+        expect(TransactionHexSchema.safeParse("0123456789abcdef").success).toBe(true);
+      });
+  
+      test('rejects non-hex characters', () => {
+        expect(TransactionHexSchema.safeParse("0123456789abcdefg").success).toBe(false);
+      });
+  
+      test('rejects uppercase hex', () => {
+        expect(TransactionHexSchema.safeParse("0123456789ABCDEF").success).toBe(false);
+      });
+    });
+
+    describe('OutputAssetsSchema', () => {
+      test('validates valid output assets', () => {
+        const validAssets = {
+          inscriptions: [],
+          runes: {},
+          sat_ranges: [],
+          value: 1000
+        };
+        expect(OutputAssetsSchema.safeParse(validAssets).success).toBe(true);
+      });
+  
+      test('validates null fields', () => {
+        const validAssets = {
+          inscriptions: null,
+          runes: null,
+          sat_ranges: null,
+          value: 1000
+        };
+        expect(OutputAssetsSchema.safeParse(validAssets).success).toBe(true);
+      });
+  
+      test('rejects negative value', () => {
+        const invalidAssets = {
+          inscriptions: [],
+          runes: {},
+          sat_ranges: [],
+          value: -1000
+        };
+        expect(OutputAssetsSchema.safeParse(invalidAssets).success).toBe(false);
+      });
+    });
+  
+    describe('SatRangeSchema', () => {
+      test('validates valid sat range', () => {
+        expect(SatRangeSchema.safeParse([0, 1000]).success).toBe(true);
+      });
+  
+      test('rejects negative numbers', () => {
+        expect(SatRangeSchema.safeParse([-1, 1000]).success).toBe(false);
+        expect(SatRangeSchema.safeParse([0, -1000]).success).toBe(false);
+      });
+  
+      test('rejects wrong tuple length', () => {
+        expect(SatRangeSchema.safeParse([0]).success).toBe(false);
+        expect(SatRangeSchema.safeParse([0, 1000, 2000]).success).toBe(false);
       });
     });
   });
@@ -227,7 +293,9 @@ describe('Schema Validation', () => {
           ...SAMPLE_INSCRIPTION,
           charms: ['invalid_charm'],
         };
-        const result = InscriptionInfoSchema.safeParse(inscriptionWithInvalidCharm);
+        const result = InscriptionInfoSchema.safeParse(
+          inscriptionWithInvalidCharm,
+        );
         expect(result.success).toBe(false);
       });
 
@@ -238,7 +306,9 @@ describe('Schema Validation', () => {
           children: [],
           parents: [],
         };
-        const result = InscriptionInfoSchema.safeParse(inscriptionWithEmptyArrays);
+        const result = InscriptionInfoSchema.safeParse(
+          inscriptionWithEmptyArrays,
+        );
         expect(result.success).toBe(true);
       });
 
@@ -263,7 +333,9 @@ describe('Schema Validation', () => {
           fee: -1,
           value: -1,
         };
-        const result = InscriptionInfoSchema.safeParse(inscriptionWithNegatives);
+        const result = InscriptionInfoSchema.safeParse(
+          inscriptionWithNegatives,
+        );
         expect(result.success).toBe(false);
       });
     });
@@ -284,6 +356,114 @@ describe('Schema Validation', () => {
         };
         const result = InscriptionsResponseSchema.safeParse(invalidResponse);
         expect(result.success).toBe(false);
+      });
+    });
+
+    describe('InscriptionRecursiveSchema', () => {
+      test('validates valid recursive inscription', () => {
+        const validInscription = {
+          charms: ["rare", "uncommon"],
+          content_type: "text/plain",
+          content_length: 100,
+          delegate: null,
+          fee: 1000,
+          height: 1000,
+          id: "abc123",
+          number: 1,
+          output: "txid:0",
+          sat: 1000,
+          satpoint: "txid:0:0",
+          timestamp: 1234567890,
+          value: 1000,
+          address: "bc1..."
+        };
+        expect(InscriptionRecursiveSchema.safeParse(validInscription).success).toBe(true);
+      });
+  
+      test('validates null fields', () => {
+        const validInscription = {
+          charms: [],
+          content_type: null,
+          content_length: null,
+          delegate: null,
+          fee: 1000,
+          height: 1000,
+          id: "abc123",
+          number: 1,
+          output: "txid:0",
+          sat: null,
+          satpoint: "txid:0:0",
+          timestamp: 1234567890,
+          value: null,
+          address: null
+        };
+        expect(InscriptionRecursiveSchema.safeParse(validInscription).success).toBe(true);
+      });
+    });
+  
+    describe('ChildInfoSchema', () => {
+      test('validates valid child info', () => {
+        const validChild = {
+          charms: ["rare"],
+          fee: 1000,
+          height: 1000,
+          id: "abc123",
+          number: 1,
+          output: "txid:0",
+          sat: 1000,
+          satpoint: "txid:0:0",
+          timestamp: 1234567890
+        };
+        expect(ChildInfoSchema.safeParse(validChild).success).toBe(true);
+      });
+  
+      test('rejects negative numbers', () => {
+        const invalidChild = {
+          charms: ["rare"],
+          fee: -1000,
+          height: 1000,
+          id: "abc123",
+          number: 1,
+          output: "txid:0",
+          sat: 1000,
+          satpoint: "txid:0:0",
+          timestamp: 1234567890
+        };
+        expect(ChildInfoSchema.safeParse(invalidChild).success).toBe(false);
+      });
+    });
+  
+    describe('ChildrenInfoResponseSchema', () => {
+      test('validates valid children info response', () => {
+        const validResponse = {
+          children: [],
+          more: false,
+          page: 0
+        };
+        expect(ChildrenInfoResponseSchema.safeParse(validResponse).success).toBe(true);
+      });
+  
+      test('rejects negative page number', () => {
+        const invalidResponse = {
+          children: [],
+          more: false,
+          page: -1
+        };
+        expect(ChildrenInfoResponseSchema.safeParse(invalidResponse).success).toBe(false);
+      });
+    });
+  
+    describe('InscriptionIDSchema', () => {
+      test('validates valid inscription ID', () => {
+        expect(InscriptionIDSchema.safeParse({ id: "abc123" }).success).toBe(true);
+      });
+  
+      test('validates null ID', () => {
+        expect(InscriptionIDSchema.safeParse({ id: null }).success).toBe(true);
+      });
+  
+      test('rejects missing ID field', () => {
+        expect(InscriptionIDSchema.safeParse({}).success).toBe(false);
       });
     });
   });
@@ -338,6 +518,43 @@ describe('Schema Validation', () => {
   });
 
   describe('Rune Schemas', () => {
+    describe('RuneBalanceSchema', () => {
+      test('validates valid rune balance', () => {
+        const validBalance = {
+          amount: 1000,
+          divisibility: 8,
+          symbol: "TEST•RUNE"
+        };
+        expect(RuneBalanceSchema.safeParse(validBalance).success).toBe(true);
+      });
+  
+      test('rejects negative amount', () => {
+        const invalidBalance = {
+          amount: -1000,
+          divisibility: 8,
+          symbol: "TEST•RUNE"
+        };
+        expect(RuneBalanceSchema.safeParse(invalidBalance).success).toBe(false);
+      });
+  
+      test('rejects negative divisibility', () => {
+        const invalidBalance = {
+          amount: 1000,
+          divisibility: -8,
+          symbol: "TEST•RUNE"
+        };
+        expect(RuneBalanceSchema.safeParse(invalidBalance).success).toBe(false);
+      });
+  
+      test('rejects missing required fields', () => {
+        const invalidBalance = {
+          amount: 1000,
+          symbol: "TEST•RUNE"
+        };
+        expect(RuneBalanceSchema.safeParse(invalidBalance).success).toBe(false);
+      });
+    });
+    
     describe('RuneInfoSchema', () => {
       test('validates valid rune', () => {
         const result = RuneInfoSchema.safeParse(SAMPLE_RUNE);

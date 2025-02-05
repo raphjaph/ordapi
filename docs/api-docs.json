@@ -1,0 +1,1702 @@
+{
+  "classMethods": [
+    {
+      "name": "getAddressInfo",
+      "parameters": [
+        {
+          "name": "address",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "description": "Retrieves information about a specific address including its outputs, inscriptions, and rune balances.",
+      "endpoint": "/address/{address}",
+      "httpMethod": "GET",
+      "returnType": "Promise<AddressInfo>",
+      "recursive": false
+    },
+    {
+      "name": "getBlockInfo",
+      "parameters": [
+        {
+          "name": "heightOrHash",
+          "type": "number | BlockHash",
+          "description": ""
+        }
+      ],
+      "description": "Fetches details about a specific block by its height or hash.",
+      "endpoint": "/block/{heightOrHash}",
+      "httpMethod": "GET",
+      "returnType": "Promise<BlockInfo>",
+      "recursive": false
+    },
+    {
+      "name": "getBlockInfoRecursive",
+      "parameters": [
+        {
+          "name": "heightOrHash",
+          "type": "number | string",
+          "description": ""
+        }
+      ],
+      "description": "Gets detailed block information using the recursive endpoint.",
+      "endpoint": "/r/blockinfo/{heightOrHash}",
+      "httpMethod": "GET",
+      "returnType": "Promise<BlockDetails>",
+      "recursive": true
+    },
+    {
+      "name": "getBlockCount",
+      "parameters": [],
+      "description": "Retrieves the total number of blocks in the blockchain.",
+      "endpoint": "/blockcount",
+      "httpMethod": "GET",
+      "returnType": "Promise<number>",
+      "recursive": false
+    },
+    {
+      "name": "getBlockHash",
+      "parameters": [],
+      "description": "Gets the hash of the latest block.",
+      "endpoint": "/blockhash",
+      "httpMethod": "GET",
+      "returnType": "Promise<BlockHash>",
+      "recursive": false
+    },
+    {
+      "name": "getBlockHashRecursive",
+      "parameters": [],
+      "description": "Gets the latest block hash using the recursive endpoint.",
+      "endpoint": "/r/blockhash",
+      "httpMethod": "GET",
+      "returnType": "Promise<BlockHash>",
+      "recursive": true
+    },
+    {
+      "name": "getBlockHashByHeight",
+      "parameters": [
+        {
+          "name": "height",
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "description": "Gets the hash of a block at the specified height.",
+      "endpoint": "/blockhash/{height}",
+      "httpMethod": "GET",
+      "returnType": "Promise<BlockHash>",
+      "recursive": false
+    },
+    {
+      "name": "getBlockHashByHeightRecursive",
+      "parameters": [
+        {
+          "name": "height",
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "description": "Gets the block hash using the recursive endpoint.",
+      "endpoint": "/r/blockhash/{height}",
+      "httpMethod": "GET",
+      "returnType": "Promise<BlockHash>",
+      "recursive": true
+    },
+    {
+      "name": "getBlockHeight",
+      "parameters": [],
+      "description": "Gets the height of the latest block.",
+      "endpoint": "/blockheight",
+      "httpMethod": "GET",
+      "returnType": "Promise<number>",
+      "recursive": false
+    },
+    {
+      "name": "getBlockHeightRecursive",
+      "parameters": [],
+      "description": "Gets the latest block height using the recursive endpoint.",
+      "endpoint": "/r/blockheight",
+      "httpMethod": "GET",
+      "returnType": "Promise<number>",
+      "recursive": true
+    },
+    {
+      "name": "getBlocksLatest",
+      "parameters": [],
+      "description": "Returns the height of the latest block, the blockhashes of the last 100 blocks, and featured inscriptions from them.",
+      "endpoint": "/blocks",
+      "httpMethod": "GET",
+      "returnType": "Promise<BlocksResponse>",
+      "recursive": false
+    },
+    {
+      "name": "getBlockTime",
+      "parameters": [],
+      "description": "Gets the timestamp of the latest block.",
+      "endpoint": "/blocktime",
+      "httpMethod": "GET",
+      "returnType": "Promise<number>",
+      "recursive": false
+    },
+    {
+      "name": "getBlockTimeRecursive",
+      "parameters": [],
+      "description": "Gets block time using the recursive endpoint.",
+      "endpoint": "/r/blocktime",
+      "httpMethod": "GET",
+      "returnType": "Promise<number>",
+      "recursive": true
+    },
+    {
+      "name": "getInscriptionInfo",
+      "parameters": [
+        {
+          "name": "id",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "description": "Retrieves information about a specific inscription by its ID.",
+      "endpoint": "/inscription/{id}",
+      "httpMethod": "GET",
+      "returnType": "Promise<InscriptionInfo>",
+      "recursive": false
+    },
+    {
+      "name": "getInscriptionRecursive",
+      "parameters": [
+        {
+          "name": "id",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "description": "Gets recursive inscription information.",
+      "endpoint": "/r/inscription/{id}",
+      "httpMethod": "GET",
+      "returnType": "Promise<InscriptionRecursive>",
+      "recursive": true
+    },
+    {
+      "name": "getInscriptions",
+      "parameters": [],
+      "description": "Gets a list of the 100 most recent inscriptions.",
+      "endpoint": "/inscriptions",
+      "httpMethod": "GET",
+      "returnType": "Promise<InscriptionsResponse>",
+      "recursive": false
+    },
+    {
+      "name": "getInscriptionsByIds",
+      "parameters": [
+        {
+          "name": "ids",
+          "type": "string[]",
+          "description": ""
+        }
+      ],
+      "description": "Retrieves information about multiple inscriptions by their IDs.",
+      "endpoint": "/inscriptions",
+      "httpMethod": "POST",
+      "returnType": "Promise<InscriptionInfo[]>",
+      "recursive": false
+    },
+    {
+      "name": "getInscriptionsByPage",
+      "parameters": [
+        {
+          "name": "page",
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "description": "Gets inscriptions for a specific page number in paginated results.",
+      "endpoint": "/inscriptions/{page}",
+      "httpMethod": "GET",
+      "returnType": "Promise<InscriptionsResponse>",
+      "recursive": false
+    },
+    {
+      "name": "getInscriptionsByBlock",
+      "parameters": [
+        {
+          "name": "height",
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "description": "Gets all inscriptions in a specific block.",
+      "endpoint": "/inscriptions/block/{height}",
+      "httpMethod": "GET",
+      "returnType": "Promise<InscriptionsResponse>",
+      "recursive": false
+    },
+    {
+      "name": "getInscriptionOnSat",
+      "parameters": [
+        {
+          "name": "number",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "index",
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "description": "Gets ID of a specific inscription at an index by sat number. The inscription id at index of all inscriptions on a sat. Index may be a negative number to index from the back. 0 being the first and -1 being the most recent for example. Requires index with --index-sats flag.",
+      "endpoint": "/r/sat/{number}/at/{index}",
+      "httpMethod": "GET",
+      "returnType": "Promise<InscriptionID>",
+      "recursive": true
+    },
+    {
+      "name": "getInscriptionsOnSat",
+      "parameters": [
+        {
+          "name": "number",
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "description": "Gets the first 100 inscription ids on a sat. Requires index with --index-sats flag.",
+      "endpoint": "/r/sat/{number}",
+      "httpMethod": "GET",
+      "returnType": "Promise<InscriptionsIDsResponse>",
+      "recursive": true
+    },
+    {
+      "name": "getInscriptionsOnSatByPage",
+      "parameters": [
+        {
+          "name": "number",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "page",
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "description": "Gets paginated inscription ids for a specific satoshi.",
+      "endpoint": "/r/sat/{number}/{page}",
+      "httpMethod": "GET",
+      "returnType": "Promise<InscriptionsIDsResponse>",
+      "recursive": true
+    },
+    {
+      "name": "getChild",
+      "parameters": [
+        {
+          "name": "id",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "child",
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "description": "Gets a specific child inscription of a parent inscription.",
+      "endpoint": "/inscription/{id}/{child}",
+      "httpMethod": "GET",
+      "returnType": "Promise<InscriptionInfo>",
+      "recursive": false
+    },
+    {
+      "name": "getChildren",
+      "parameters": [
+        {
+          "name": "id",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "description": "Gets first 100 child inscriptions IDs.",
+      "endpoint": "/r/children/{id}",
+      "httpMethod": "GET",
+      "returnType": "Promise<InscriptionsIDsResponse>",
+      "recursive": true
+    },
+    {
+      "name": "getChildrenByPage",
+      "parameters": [
+        {
+          "name": "id",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "page",
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "description": "Gets paginated child inscription IDs.",
+      "endpoint": "/r/children/{id}/{page}",
+      "httpMethod": "GET",
+      "returnType": "Promise<InscriptionsIDsResponse>",
+      "recursive": true
+    },
+    {
+      "name": "getChildrenInfo",
+      "parameters": [
+        {
+          "name": "id",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "description": "Gets details of the first 100 child inscriptions.",
+      "endpoint": "/r/children/{id}/inscriptions",
+      "httpMethod": "GET",
+      "returnType": "Promise<ChildrenInfoResponse>",
+      "recursive": true
+    },
+    {
+      "name": "getChildrenInfoByPage",
+      "parameters": [
+        {
+          "name": "id",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "page",
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "description": "Gets paginated detailed child inscription information.",
+      "endpoint": "/r/children/{id}/inscriptions/{page}",
+      "httpMethod": "GET",
+      "returnType": "Promise<ChildrenInfoResponse>",
+      "recursive": true
+    },
+    {
+      "name": "getParents",
+      "parameters": [
+        {
+          "name": "id",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "description": "Gets parent inscription IDs.",
+      "endpoint": "/r/parents/{id}",
+      "httpMethod": "GET",
+      "returnType": "Promise<InscriptionsResponse>",
+      "recursive": true
+    },
+    {
+      "name": "getParentsByPage",
+      "parameters": [
+        {
+          "name": "id",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "page",
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "description": "Gets paginated parent inscription IDs.",
+      "endpoint": "/r/parents/{id}/{page}",
+      "httpMethod": "GET",
+      "returnType": "Promise<InscriptionsResponse>",
+      "recursive": true
+    },
+    {
+      "name": "getOutput",
+      "parameters": [
+        {
+          "name": "outpoint",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "description": "Retrieves information about a specific UTXO.",
+      "endpoint": "/output/{outpoint}",
+      "httpMethod": "GET",
+      "returnType": "Promise<OutputInfo>",
+      "recursive": false
+    },
+    {
+      "name": "getOutputAssets",
+      "parameters": [
+        {
+          "name": "outpoint",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "description": "Gets assets held by an UTXO.",
+      "endpoint": "/r/utxo/{outpoint}",
+      "httpMethod": "GET",
+      "returnType": "Promise<OutputAssets>",
+      "recursive": true
+    },
+    {
+      "name": "getOutputs",
+      "parameters": [
+        {
+          "name": "outpoints",
+          "type": "string[]",
+          "description": ""
+        }
+      ],
+      "description": "Gets information about multiple UTXOs.",
+      "endpoint": "/outputs",
+      "httpMethod": "POST",
+      "returnType": "Promise<OutputInfo[]>",
+      "recursive": false
+    },
+    {
+      "name": "getOutputsByAddress",
+      "parameters": [
+        {
+          "name": "address",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "type",
+          "type": "OutputType",
+          "description": ""
+        }
+      ],
+      "description": "Gets all UTXOs for a specific address, optionally filtered by type.",
+      "endpoint": "/outputs/{address}",
+      "httpMethod": "GET",
+      "returnType": "Promise<OutputInfo[]>",
+      "recursive": false
+    },
+    {
+      "name": "getRune",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "description": "Gets information about a specific rune by name.",
+      "endpoint": "/rune/{name}",
+      "httpMethod": "GET",
+      "returnType": "Promise<RuneResponse>",
+      "recursive": false
+    },
+    {
+      "name": "getRunesLatest",
+      "parameters": [],
+      "description": "Gets a list of the 100 most recent runes.",
+      "endpoint": "/runes",
+      "httpMethod": "GET",
+      "returnType": "Promise<RunesResponse>",
+      "recursive": false
+    },
+    {
+      "name": "getRunesByPage",
+      "parameters": [
+        {
+          "name": "page",
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "description": "Gets runes for a specific page number in paginated results.",
+      "endpoint": "/runes/{page}",
+      "httpMethod": "GET",
+      "returnType": "Promise<RunesResponse>",
+      "recursive": false
+    },
+    {
+      "name": "getSat",
+      "parameters": [
+        {
+          "name": "number",
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "description": "Gets information about a specific satoshi by its number.",
+      "endpoint": "/sat/{number}",
+      "httpMethod": "GET",
+      "returnType": "Promise<SatInfo>",
+      "recursive": false
+    },
+    {
+      "name": "getTransaction",
+      "parameters": [
+        {
+          "name": "txId",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "description": "Gets information about a specific transaction.",
+      "endpoint": "/tx/{txId}",
+      "httpMethod": "GET",
+      "returnType": "Promise<TransactionInfo>",
+      "recursive": false
+    },
+    {
+      "name": "getTransactionHex",
+      "parameters": [
+        {
+          "name": "txid",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "description": "Gets hex transaction data.",
+      "endpoint": "/r/tx/{txid}",
+      "httpMethod": "GET",
+      "returnType": "Promise<TransactionHex>",
+      "recursive": true
+    },
+    {
+      "name": "getServerStatus",
+      "parameters": [],
+      "description": "Gets the current server status and information.",
+      "endpoint": "/status",
+      "httpMethod": "GET",
+      "returnType": "Promise<ServerStatus>",
+      "recursive": false
+    }
+  ],
+  "exportedTypes": [
+    {
+      "name": "AddressInfo",
+      "type": "object",
+      "description": "Comprehensive information about a Bitcoin address including its balance, outputs, inscriptions, and runes balances.",
+      "properties": [
+        {
+          "name": "inscriptions",
+          "type": "string[] | null",
+          "description": ""
+        },
+        {
+          "name": "outputs",
+          "type": "string[]",
+          "description": ""
+        },
+        {
+          "name": "runes_balances",
+          "type": "string[][] | null",
+          "description": ""
+        },
+        {
+          "name": "sat_balance",
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "sourceFile": "address.ts"
+    },
+    {
+      "name": "BlockInfo",
+      "type": "object",
+      "description": "Basic block information including inscriptions and runes.",
+      "properties": [
+        {
+          "name": "best_height",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "hash",
+          "type": "BlockHash",
+          "description": ""
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "inscriptions",
+          "type": "string[]",
+          "description": ""
+        },
+        {
+          "name": "runes",
+          "type": "string[]",
+          "description": ""
+        },
+        {
+          "name": "target",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "transactions",
+          "type": "Transaction[]",
+          "description": ""
+        }
+      ],
+      "sourceFile": "block.ts"
+    },
+    {
+      "name": "BlocksResponse",
+      "type": "object",
+      "description": "Paginated response containing a list of recent blocks and metadata.",
+      "properties": [
+        {
+          "name": "blocks",
+          "type": "BlockHash[]",
+          "description": ""
+        },
+        {
+          "name": "featured_blocks",
+          "type": "Record<BlockHash, string[]>",
+          "description": ""
+        },
+        {
+          "name": "last",
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "sourceFile": "block.ts"
+    },
+    {
+      "name": "BlockDetails",
+      "type": "object",
+      "description": "Detailed information about given block.",
+      "properties": [
+        {
+          "name": "average_fee",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "average_fee_rate",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "bits",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "chainwork",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "confirmations",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "difficulty",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "feerate_percentiles",
+          "type": "number[]",
+          "description": ""
+        },
+        {
+          "name": "hash",
+          "type": "BlockHash",
+          "description": ""
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "max_fee",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "max_fee_rate",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "max_tx_size",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "median_fee",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "median_time",
+          "type": "number | null",
+          "description": ""
+        },
+        {
+          "name": "merkle_root",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "min_fee",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "min_fee_rate",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "next_block",
+          "type": "BlockHash | null",
+          "description": ""
+        },
+        {
+          "name": "nonce",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "previous_block",
+          "type": "BlockHash | null",
+          "description": ""
+        },
+        {
+          "name": "subsidy",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "target",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "timestamp",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "total_fee",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "total_size",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "total_weight",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "transaction_count",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "version",
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "sourceFile": "block.ts"
+    },
+    {
+      "name": "CharmType",
+      "type": "enum",
+      "description": "Special characteristics or properties of a sat (e.g. \"cursed\", \"epic\", \"burned\").",
+      "values": [
+        "burned",
+        "coin",
+        "cursed",
+        "epic",
+        "legendary",
+        "lost",
+        "mythic",
+        "nineball",
+        "palindrome",
+        "rare",
+        "reinscription",
+        "unbound",
+        "uncommon",
+        "vindicated"
+      ],
+      "sourceFile": "inscription.ts"
+    },
+    {
+      "name": "InscriptionInfo",
+      "type": "object",
+      "description": "Comprehensive information about an inscription including its content type, genesis data, location and transfer history.",
+      "properties": [
+        {
+          "name": "address",
+          "type": "string | null",
+          "description": ""
+        },
+        {
+          "name": "charms",
+          "type": "CharmType[]",
+          "description": ""
+        },
+        {
+          "name": "child_count",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "children",
+          "type": "string[]",
+          "description": ""
+        },
+        {
+          "name": "content_length",
+          "type": "number | null",
+          "description": ""
+        },
+        {
+          "name": "content_type",
+          "type": "string | null",
+          "description": ""
+        },
+        {
+          "name": "effective_content_type",
+          "type": "string | null",
+          "description": ""
+        },
+        {
+          "name": "fee",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "metaprotocol",
+          "type": "string | null",
+          "description": ""
+        },
+        {
+          "name": "next",
+          "type": "string | null",
+          "description": ""
+        },
+        {
+          "name": "number",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "parents",
+          "type": "string[]",
+          "description": ""
+        },
+        {
+          "name": "previous",
+          "type": "string | null",
+          "description": ""
+        },
+        {
+          "name": "rune",
+          "type": "string | null",
+          "description": ""
+        },
+        {
+          "name": "sat",
+          "type": "number | null",
+          "description": ""
+        },
+        {
+          "name": "satpoint",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "timestamp",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "number | null",
+          "description": ""
+        }
+      ],
+      "sourceFile": "inscription.ts"
+    },
+    {
+      "name": "InscriptionRecursive",
+      "type": "object",
+      "description": "Comprehensive information about an inscription retrieved from recursive endpoint.",
+      "properties": [
+        {
+          "name": "address",
+          "type": "string | null",
+          "description": ""
+        },
+        {
+          "name": "charms",
+          "type": "CharmType[]",
+          "description": ""
+        },
+        {
+          "name": "content_length",
+          "type": "number | null",
+          "description": ""
+        },
+        {
+          "name": "content_type",
+          "type": "string | null",
+          "description": ""
+        },
+        {
+          "name": "delegate",
+          "type": "string | null",
+          "description": ""
+        },
+        {
+          "name": "fee",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "number",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "output",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "sat",
+          "type": "number | null",
+          "description": ""
+        },
+        {
+          "name": "satpoint",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "timestamp",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "number | null",
+          "description": ""
+        }
+      ],
+      "sourceFile": "inscription.ts"
+    },
+    {
+      "name": "InscriptionsResponse",
+      "type": "object",
+      "description": "Paginated response containing a list of inscriptions IDs.",
+      "properties": [
+        {
+          "name": "ids",
+          "type": "string[]",
+          "description": ""
+        },
+        {
+          "name": "more",
+          "type": "boolean",
+          "description": ""
+        },
+        {
+          "name": "page_index",
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "sourceFile": "inscription.ts"
+    },
+    {
+      "name": "InscriptionsIDsResponse",
+      "type": "object",
+      "description": "Paginated response containing a list of inscription IDs",
+      "properties": [
+        {
+          "name": "ids",
+          "type": "string[]",
+          "description": ""
+        },
+        {
+          "name": "more",
+          "type": "boolean",
+          "description": ""
+        },
+        {
+          "name": "page",
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "sourceFile": "inscription.ts"
+    },
+    {
+      "name": "ChildInfo",
+      "type": "object",
+      "description": "Child inscription info retrieved from recursive endpoint.",
+      "properties": [
+        {
+          "name": "charms",
+          "type": "CharmType[]",
+          "description": ""
+        },
+        {
+          "name": "fee",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "number",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "output",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "sat",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "satpoint",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "timestamp",
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "sourceFile": "inscription.ts"
+    },
+    {
+      "name": "ChildrenInfoResponse",
+      "type": "object",
+      "description": "Paginated response containing child inscriptions detailed info.",
+      "properties": [
+        {
+          "name": "children",
+          "type": "ChildInfo[]",
+          "description": ""
+        },
+        {
+          "name": "more",
+          "type": "boolean",
+          "description": ""
+        },
+        {
+          "name": "page",
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "sourceFile": "inscription.ts"
+    },
+    {
+      "name": "InscriptionID",
+      "type": "object",
+      "description": "Response containing a single inscription ID.",
+      "properties": [
+        {
+          "name": "id",
+          "type": "string | null",
+          "description": ""
+        }
+      ],
+      "sourceFile": "inscription.ts"
+    },
+    {
+      "name": "OutputType",
+      "type": "enum",
+      "description": "Type of UTXO output (e.g. \"plain\", \"inscription\", \"rune\").",
+      "values": [
+        "any",
+        "cardinal",
+        "inscribed",
+        "runic"
+      ],
+      "sourceFile": "output.ts"
+    },
+    {
+      "name": "OutputInfo",
+      "type": "object",
+      "description": "Detailed information about a UTXO including value, script type, and any inscriptions or runes it contains.",
+      "properties": [
+        {
+          "name": "address",
+          "type": "string | null",
+          "description": ""
+        },
+        {
+          "name": "indexed",
+          "type": "boolean",
+          "description": ""
+        },
+        {
+          "name": "inscriptions",
+          "type": "string[] | null",
+          "description": ""
+        },
+        {
+          "name": "outpoint",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "runes",
+          "type": "Record<string, RuneBalance> | null",
+          "description": ""
+        },
+        {
+          "name": "sat_ranges",
+          "type": "SatRange[] | null",
+          "description": ""
+        },
+        {
+          "name": "script_pubkey",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "spent",
+          "type": "boolean",
+          "description": ""
+        },
+        {
+          "name": "transaction",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "sourceFile": "output.ts"
+    },
+    {
+      "name": "OutputAssets",
+      "type": "object",
+      "description": "Information about assets held by an UTXO.",
+      "properties": [
+        {
+          "name": "inscriptions",
+          "type": "string[] | null",
+          "description": ""
+        },
+        {
+          "name": "runes",
+          "type": "Record<string, RuneBalance> | null",
+          "description": ""
+        },
+        {
+          "name": "sat_ranges",
+          "type": "SatRange[] | null",
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "sourceFile": "output.ts"
+    },
+    {
+      "name": "RuneBalance",
+      "type": "object",
+      "description": "Basic information about a rune held by an UTXO.",
+      "properties": [
+        {
+          "name": "amount",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "divisibility",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "sourceFile": "rune.ts"
+    },
+    {
+      "name": "RuneInfo",
+      "type": "object",
+      "description": "Basic information about a rune including its symbol and supply details.",
+      "properties": [
+        {
+          "name": "block",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "burned",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "divisibility",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "etching",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "mints",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "number",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "premine",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "spaced_rune",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "symbol",
+          "type": "string | null",
+          "description": ""
+        },
+        {
+          "name": "terms",
+          "type": "RuneTerms",
+          "description": ""
+        },
+        {
+          "name": "timestamp",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "turbo",
+          "type": "boolean",
+          "description": ""
+        }
+      ],
+      "sourceFile": "rune.ts"
+    },
+    {
+      "name": "RuneResponse",
+      "type": "object",
+      "description": "Detailed rune information including minting status and parent.",
+      "properties": [
+        {
+          "name": "entry",
+          "type": "RuneInfo",
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "mintable",
+          "type": "boolean",
+          "description": ""
+        },
+        {
+          "name": "parent",
+          "type": "string | null",
+          "description": ""
+        }
+      ],
+      "sourceFile": "rune.ts"
+    },
+    {
+      "name": "RunesResponse",
+      "type": "object",
+      "description": "Paginated response containing a list of runes and metadata.",
+      "properties": [
+        {
+          "name": "entries",
+          "type": "[string, RuneInfo][]",
+          "description": ""
+        },
+        {
+          "name": "more",
+          "type": "boolean",
+          "description": ""
+        },
+        {
+          "name": "next",
+          "type": "number | null",
+          "description": ""
+        },
+        {
+          "name": "prev",
+          "type": "number | null",
+          "description": ""
+        }
+      ],
+      "sourceFile": "rune.ts"
+    },
+    {
+      "name": "RarityType",
+      "type": "enum",
+      "description": "Classification of sat rarity (e.g. \"common\", \"uncommon\", \"rare\", \"epic\", \"legendary\").",
+      "values": [
+        "common",
+        "epic",
+        "legendary",
+        "mythic",
+        "rare",
+        "uncommon"
+      ],
+      "sourceFile": "sat.ts"
+    },
+    {
+      "name": "SatInfo",
+      "type": "object",
+      "description": "Information about a specific satoshi including its number, timestamp, and rarity classification.",
+      "properties": [
+        {
+          "name": "address",
+          "type": "string | null",
+          "description": ""
+        },
+        {
+          "name": "block",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "charms",
+          "type": "CharmType[]",
+          "description": ""
+        },
+        {
+          "name": "cycle",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "decimal",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "degree",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "epoch",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "inscriptions",
+          "type": "string[]",
+          "description": ""
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "number",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "offset",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "percentile",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "period",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "rarity",
+          "type": "RarityType",
+          "description": ""
+        },
+        {
+          "name": "satpoint",
+          "type": "string | null",
+          "description": ""
+        },
+        {
+          "name": "timestamp",
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "sourceFile": "sat.ts"
+    },
+    {
+      "name": "ServerStatus",
+      "type": "object",
+      "description": "Current status information about the ordinals server including version, height and indexing progress.",
+      "properties": [
+        {
+          "name": "address_index",
+          "type": "boolean",
+          "description": ""
+        },
+        {
+          "name": "blessed_inscriptions",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "chain",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "cursed_inscriptions",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "initial_sync_time",
+          "type": "Time",
+          "description": ""
+        },
+        {
+          "name": "inscriptions",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "lost_sats",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "minimum_rune_for_next_block",
+          "type": "string | null",
+          "description": ""
+        },
+        {
+          "name": "rune_index",
+          "type": "boolean",
+          "description": ""
+        },
+        {
+          "name": "runes",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "sat_index",
+          "type": "boolean",
+          "description": ""
+        },
+        {
+          "name": "started",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "transaction_index",
+          "type": "boolean",
+          "description": ""
+        },
+        {
+          "name": "unrecoverably_reorged",
+          "type": "boolean",
+          "description": ""
+        },
+        {
+          "name": "uptime",
+          "type": "Time",
+          "description": ""
+        }
+      ],
+      "sourceFile": "status.ts"
+    },
+    {
+      "name": "Input",
+      "type": "object",
+      "description": "Transaction input containing previous output reference and witness data.",
+      "properties": [
+        {
+          "name": "previous_output",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "script_sig",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "sequence",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "witness",
+          "type": "string[]",
+          "description": ""
+        }
+      ],
+      "sourceFile": "transaction.ts"
+    },
+    {
+      "name": "Output",
+      "type": "object",
+      "description": "Transaction output containing value and script pubkey.",
+      "properties": [
+        {
+          "name": "script_pubkey",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "sourceFile": "transaction.ts"
+    },
+    {
+      "name": "Transaction",
+      "type": "object",
+      "description": "Bitcoin transaction data including version, locktime, inputs and outputs.",
+      "properties": [
+        {
+          "name": "input",
+          "type": "Input[]",
+          "description": ""
+        },
+        {
+          "name": "lock_time",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "output",
+          "type": "Output[]",
+          "description": ""
+        },
+        {
+          "name": "version",
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "sourceFile": "transaction.ts"
+    },
+    {
+      "name": "TransactionInfo",
+      "type": "object",
+      "description": "Extended transaction information including block details, timestamp and inscription data.",
+      "properties": [
+        {
+          "name": "chain",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "etching",
+          "type": "string | null",
+          "description": ""
+        },
+        {
+          "name": "inscription_count",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "transaction",
+          "type": "Transaction",
+          "description": ""
+        },
+        {
+          "name": "txid",
+          "type": "string",
+          "description": ""
+        }
+      ],
+      "sourceFile": "transaction.ts"
+    }
+  ]
+}

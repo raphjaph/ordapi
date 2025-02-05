@@ -1,41 +1,55 @@
 import { OutputType } from './types';
 
 const api = {
-  address: (address: string) => `/address/${address}`,
-  block: (heightOrHash: number | string) => `/block/${heightOrHash}`,
-  blockcount: '/blockcount',
-  blockhash: {
-    latest: '/blockhash',
-    byHeight: (height: number) => `/blockhash/${height}`,
+  getAddressInfo: (address: string) => `/address/${address}`,
+  getBlockInfo: (heightOrHash: number | string) => `/block/${heightOrHash}`,
+  getBlockCount: '/blockcount',
+  getBlockHashByHeight: (height: number) => `/blockhash/${height}`,
+  getBlockHash: '/blockhash',
+  getBlockHeight: '/blockheight',
+  getBlocksLatest: '/blocks',
+  getBlockTime: '/blocktime',
+  getInscriptionInfo: (id: string) => `/inscription/${id}`,
+  getChild: (id: string, child: number) => `/inscription/${id}/${child}`,
+  getInscriptions: '/inscriptions',
+  getInscriptionsByIds: '/inscriptions',
+  getInscriptionsByPage: (page: number) => `/inscriptions/${page}`,
+  getInscriptionsByBlock: (height: number) => `/inscriptions/block/${height}`,
+  getOutput: (outpoint: string) => `/output/${outpoint}`,
+  getOutputs: '/outputs',
+  getOutputsByAddress: (address: string, type?: OutputType) => {
+    const base = `/outputs/${address}`;
+    return type ? `${base}?type=${type}` : base;
   },
-  blockheight: '/blockheight',
-  blocks: '/blocks',
-  blocktime: '/blocktime',
-  inscription: (id: string) => `/inscription/${id}`,
-  inscriptionChild: (id: string, child: number) =>
-    `/inscription/${id}/${child}`,
-  inscriptions: {
-    base: '/inscriptions',
-    latest: '/inscriptions',
-    byPage: (page: number) => `/inscriptions/${page}`,
-    byBlock: (height: number) => `/inscriptions/block/${height}`,
-  },
-  output: (outpoint: string) => `/output/${outpoint}`,
-  outputs: {
-    base: '/outputs',
-    byAddress: (address: string, type?: OutputType) => {
-      const base = `/outputs/${address}`;
-      return type ? `${base}?type=${type}` : base;
-    },
-  },
-  rune: (name: string) => `/rune/${name}`,
-  runes: {
-    latest: '/runes',
-    byPage: (page: number) => `/runes/${page}`,
-  },
-  sat: (number: number) => `/sat/${number}`,
-  tx: (txId: string) => `/tx/${txId}`,
-  status: '/status',
+  getRune: (name: string) => `/rune/${name}`,
+  getRunesLatest: '/runes',
+  getRunesByPage: (page: number) => `/runes/${page}`,
+  getSat: (number: number) => `/sat/${number}`,
+  getTransaction: (txId: string) => `/tx/${txId}`,
+  getServerStatus: '/status',
+
+  // recursive endpoints
+  getBlockHashByHeightRecursive: (height: number) => `/r/blockhash/${height}`,
+  getBlockHashRecursive: '/r/blockhash',
+  getBlockHeightRecursive: '/r/blockheight',
+  getBlockInfoRecursive: (heightOrHash: number | string) =>
+    `/r/blockinfo/${heightOrHash}`,
+  getBlockTimeRecursive: '/r/blocktime',
+  getChildren: (id: string) => `/r/children/${id}`,
+  getChildrenByPage: (id: string, page: number) => `/r/children/${id}/${page}`,
+  getChildrenInfo: (id: string) => `/r/children/${id}/inscriptions`,
+  getChildrenInfoByPage: (id: string, page: number) =>
+    `/r/children/${id}/inscriptions/${page}`,
+  getInscriptionRecursive: (id: string) => `/r/inscription/${id}`,
+  getParents: (id: string) => `/r/parents/${id}`,
+  getParentsByPage: (id: string, page: number) => `/r/parents/${id}/${page}`,
+  getInscriptionsOnSat: (number: number) => `/r/sat/${number}`,
+  getInscriptionsOnSatByPage: (number: number, page: number) =>
+    `/r/sat/${number}/${page}`,
+  getInscriptionOnSat: (number: number, index: number) =>
+    `/r/sat/${number}/at/${index}`,
+  getTransactionHex: (txid: string) => `/r/tx/${txid}`,
+  getOutputAssets: (outpoint: string) => `/r/utxo/${outpoint}`,
 } as const;
 
 export default api;

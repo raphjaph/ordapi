@@ -47,10 +47,13 @@ function parseZodType(zodType: string): string {
   }
  
   if (type.startsWith('z.record')) {
-    const matches = type.match(/z\.record\((.*?),\s*(.*?)\)/);
+    const matches = type.match(/z\.record\((.*?),\s*([\s\S]*?)\)(?![\s\S]*\)$)/);
     if (!matches) return 'Record<string, unknown>';
     const [_, keyType, valueType] = matches;
-    return `Record<${parseZodType(keyType)}, ${parseZodType(valueType)}>`;
+    const parsedValueType = parseZodType(valueType.trim());
+    const parsedKeyType = parseZodType(keyType.trim());
+    
+    return `Record<${parsedKeyType}, ${parsedValueType}>`;
   }
  
   if (type.startsWith('z.tuple')) {
@@ -71,18 +74,26 @@ function parseZodType(zodType: string): string {
 }
 
 function findTypeDescription(typeName: string, typeFileContent: string): string {
-  // Look for JSDoc comment followed by the type definition
   const regex = new RegExp(
-    `/\\*\\*\\s*\\n\\s*\\*\\s*([^\\n]+)\\s*\\n[^/]*\\*/\\s*export\\s+type\\s+${typeName}\\s*=`,
-    'ms'
+    `\\/\\*\\*([^*]*\\*+(?:[^/*][^*]*\\*+)*)\\/\\s*export\\s+type\\s+${typeName}\\b`,
+    'g'
   );
   
   const match = regex.exec(typeFileContent);
-  return match ? match[1].trim() : '';
+  if (!match) return '';
+  
+  return match[1]
+    .split('\n')
+    .map(line => line.trim()
+      .replace(/^\*\s*/, '')
+      .replace(/\s*\*\/$/, '')
+    )
+    .filter(Boolean)
+    .join(' ')
+    .trim();
 }
 
 export function extractZodSchema(schemaContent: string, filename: string): CustomType[] {
-  // Try to read types file
   let typeFileContent = '';
   try {
     const typeFilePath = path.join(process.cwd(), 'src', 'types', 'index.ts');
