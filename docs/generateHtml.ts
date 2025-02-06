@@ -75,7 +75,7 @@ function generateHtml() {
                 </div>
                 <div class="flex flex-wrap gap-2 sm:gap-4 w-full sm:w-auto justify-end sm:justify-start">
                     <button 
-                        onclick="window.open(${config.repoAddress}, '_blank')"
+                        onclick="window.open('${config.repoAddress}', '_blank')"
                         class="nav-button border border-custom-base/[var(--border-opacity)] text-custom-muted"
                     >
                         GitHub
