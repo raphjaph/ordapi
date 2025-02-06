@@ -9,6 +9,12 @@ export const RuneTermsSchema = z
   })
   .nullable();
 
+export const RuneBalanceSchema = z.object({
+  amount: z.number().int().nonnegative(),
+  divisibility: z.number().int().nonnegative(),
+  symbol: z.string(),
+});
+
 export const RuneInfoSchema = z.object({
   block: z.number().int().nonnegative(),
   burned: z.number().int().nonnegative(),
