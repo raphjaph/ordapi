@@ -33,7 +33,7 @@ export function generateTypeDocs(
   // Get documentation from types/index.ts
   const typeDocumentation = typesFile 
     ? extractJSDoc(
-        typesFile.fileName,
+        typesFile,
         node => ts.isTypeAliasDeclaration(node) &&
           schemaNames.some(schema => 
             node.name.text === schema.replace('Schema', '')

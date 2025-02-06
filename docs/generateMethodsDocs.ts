@@ -16,7 +16,7 @@ export function generateMethodDocs(
   
   // Extract all method documentation from the file
   const methodDocumentation = extractJSDoc(
-    sourceFile.fileName,
+    sourceFile,
     node => ts.isMethodDeclaration(node)
   );
 

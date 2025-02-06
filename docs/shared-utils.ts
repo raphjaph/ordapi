@@ -3,9 +3,11 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { TypeDocumentation, MethodDocumentation } from './types';
 
+export type ExcludePattern = RegExp | ((path: string) => boolean);
+
 export interface FileProcessingOptions {
   sourceDir: string;
-  excludePatterns?: RegExp[];
+  excludePatterns?: ExcludePattern[];
   includeExtensions?: string[];
 }
 
@@ -25,9 +27,15 @@ export function getAllFiles({
   return files.flatMap(file => {
     const fullPath = path.join(sourceDir, file);
     
-    if (excludePatterns.some(pattern => pattern.test(fullPath))) {
-      return [];
-    }
+    const shouldExclude = excludePatterns.some(pattern => 
+        pattern instanceof RegExp 
+          ? pattern.test(fullPath)
+          : pattern(fullPath)
+      );
+      
+      if (shouldExclude) {
+        return [];
+      }
 
     if (fs.statSync(fullPath).isDirectory()) {
       return getAllFiles({

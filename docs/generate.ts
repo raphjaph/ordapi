@@ -12,14 +12,17 @@ function generateDocs(sourceFiles: string[]): Documentation {
   const program = createTSProgram(sourceFiles);
   const methods: MethodDocumentation[] = [];
   const typesByFile = new Map<string, TypeDocumentation[]>();
+  
   // First pass: collect types
   for (const sourceFile of program.getSourceFiles()) {
     const fileName = sourceFile.fileName;
     
-    if (fileName.includes('node_modules')) {
+    // Skip node_modules and declaration files
+    if (fileName.includes('node_modules') || fileName.endsWith('.d.ts')) {
       continue;
     }
 
+    // Look for Zod schemas
     if (sourceFile.getText().includes('z.object') || 
         sourceFile.getText().includes('z.enum')) {
       const types = generateTypeDocs(sourceFile, program);
@@ -27,20 +30,15 @@ function generateDocs(sourceFiles: string[]): Documentation {
         typesByFile.set(fileName, types);
       }
     }
-  }
 
-  // Second pass: collect methods
-  for (const sourceFile of program.getSourceFiles()) {
-    const fileName = sourceFile.fileName;
-    
-    if (fileName.includes('node_modules')) {
-      continue;
+    // Also collect methods from this file
+    const fileMethods = generateMethodDocs(sourceFile, program);
+    if (fileMethods.length > 0) {
+      methods.push(...fileMethods);
     }
-
-    methods.push(...generateMethodDocs(sourceFile, program));
   }
 
-  // Combine all types preserving file order
+  // Combine all types
   const allTypes = Array.from(typesByFile.values()).flat();
 
   return {
@@ -54,28 +52,24 @@ const SOURCE_DIR = './src';
 const DOCS_DIR = path.join(process.cwd(), 'docs');
 
 // Get source files
-const sourceFiles = [
-  ...getAllFiles({
-    sourceDir: SOURCE_DIR,
-    includeExtensions: ['.ts']
-  }),
-  ...getAllFiles({
-    sourceDir: path.join(SOURCE_DIR, 'schemas'),
-    includeExtensions: ['.ts'], 
-  }),
-  ...getAllFiles({
-    sourceDir: path.join(SOURCE_DIR, 'types'),
-    includeExtensions: ['.ts'], 
-  })
-];
+const sourceFiles = getAllFiles({
+  sourceDir: SOURCE_DIR,
+  includeExtensions: ['.ts'],
+  excludePatterns: [
+    /\.test\.ts$/,
+    /\.spec\.ts$/,
+    /\.d\.ts$/,
+    /\/dist\//,
+    /\/build\//,
+    /\/node_modules\//
+  ]
+});
 
-// Generate documentation
+// Generate and write documentation
 const docs = generateDocs(sourceFiles);
-
-// Write the documentation to file
 writeDocs(
   path.join(DOCS_DIR, 'api-docs.json'),
   docs
 );
 
-console.log('Documentation generated successfully at docs/api-docs.json');
+console.log(`Documentation generated from ${sourceFiles.length} files at docs/api-docs.json`);
