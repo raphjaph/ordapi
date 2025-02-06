@@ -1,6 +1,7 @@
 import * as ts from 'typescript';
 import { MethodDocumentation } from './types';
-import { extractJSDoc, visitNodes } from './shared-utils';
+import { visitNodes } from './shared-utils';
+import { extractJSDoc } from './utils/jsdoc-extractor';
 import api from '../src/api';
 
 /**

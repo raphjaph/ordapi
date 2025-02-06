@@ -1,7 +1,7 @@
 import * as ts from 'typescript';
 import { TypeDocumentation, TypeProperty } from './types';
 import { parseZodType } from './utils/zod-type-parser';
-import { extractJSDoc } from './shared-utils';
+import { extractJSDoc } from './utils/jsdoc-extractor';
 
 export function generateTypeDocs(
   sourceFile: ts.SourceFile,
