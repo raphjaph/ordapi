@@ -25,11 +25,11 @@ describe('API Integration Tests', () => {
     invalidClient = new OrdClient('https://invalid.api');
   });
 
-  describe('getBlock', () => {
+  describe('getBlockInfo', () => {
     test(
       'fetches genesis block successfully',
       async () => {
-        const block = await client.getBlock(0);
+        const block = await client.getBlockInfo(0);
         expect(block.height).toBe(0);
         expect(block.hash).toBe(GENESIS_BLOCK.hash);
       },
@@ -39,7 +39,7 @@ describe('API Integration Tests', () => {
     test(
       'rejects negative block height',
       async () => {
-        expect(client.getBlock(-1)).rejects.toThrow();
+        expect(client.getBlockInfo(-1)).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -47,7 +47,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        expect(invalidClient.getBlock(0)).rejects.toThrow();
+        expect(invalidClient.getBlockInfo(0)).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -132,7 +132,7 @@ describe('API Integration Tests', () => {
     test(
       'returns valid hash successfully',
       async () => {
-        const hash = await client.getLatestBlockHash();
+        const hash = await client.getBlockHash();
         expect(hash).toMatch(/^[0-9a-f]{64}$/);
       },
       TIMEOUT,
@@ -141,7 +141,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        expect(invalidClient.getLatestBlockHash()).rejects.toThrow();
+        expect(invalidClient.getBlockHash()).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -151,7 +151,7 @@ describe('API Integration Tests', () => {
     test(
       'returns height successfully',
       async () => {
-        const height = await client.getLatestBlockHeight();
+        const height = await client.getBlockHeight();
         expect(height).toBeGreaterThan(0);
       },
       TIMEOUT,
@@ -160,7 +160,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        expect(invalidClient.getLatestBlockHeight()).rejects.toThrow();
+        expect(invalidClient.getBlockHeight()).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -170,7 +170,7 @@ describe('API Integration Tests', () => {
     test(
       'returns blocks list successfully',
       async () => {
-        const blocksResponse = await client.getLatestBlocks();
+        const blocksResponse = await client.getBlocksLatest();
 
         expect(typeof blocksResponse.last).toBe('number');
         expect(Array.isArray(blocksResponse.blocks)).toBe(true);
@@ -186,7 +186,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        expect(invalidClient.getLatestBlocks()).rejects.toThrow();
+        expect(invalidClient.getBlocksLatest()).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -196,7 +196,7 @@ describe('API Integration Tests', () => {
     test(
       'returns timestamp successfully',
       async () => {
-        const time = await client.getLatestBlockTime();
+        const time = await client.getBlockTime();
         expect(time).toBeGreaterThan(0);
       },
       TIMEOUT,
@@ -205,7 +205,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        expect(invalidClient.getLatestBlockTime()).rejects.toThrow();
+        expect(invalidClient.getBlockTime()).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -215,7 +215,9 @@ describe('API Integration Tests', () => {
     test(
       'fetches inscription successfully',
       async () => {
-        const inscription = await client.getInscription(SAMPLE_INSCRIPTION_ID);
+        const inscription = await client.getInscriptionInfo(
+          SAMPLE_INSCRIPTION_ID,
+        );
         expect(inscription.id).toBe(SAMPLE_INSCRIPTION_ID);
         expect(inscription.address).toBeDefined();
         expect(Array.isArray(inscription.charms)).toBe(true);
@@ -228,7 +230,7 @@ describe('API Integration Tests', () => {
       'handles server error',
       async () => {
         expect(
-          invalidClient.getInscription(SAMPLE_INSCRIPTION_ID),
+          invalidClient.getInscriptionInfo(SAMPLE_INSCRIPTION_ID),
         ).rejects.toThrow();
       },
       TIMEOUT,
@@ -239,10 +241,7 @@ describe('API Integration Tests', () => {
     test(
       'fetches child inscription successfully',
       async () => {
-        const child = await client.getInscriptionChild(
-          SAMPLE_INSCRIPTION_ID,
-          0,
-        );
+        const child = await client.getChild(SAMPLE_INSCRIPTION_ID, 0);
         expect(child.id).toBeDefined();
         expect(Array.isArray(child.children)).toBe(true);
         expect(child.parents).toContain(SAMPLE_INSCRIPTION_ID);
@@ -254,7 +253,7 @@ describe('API Integration Tests', () => {
       'handles server error',
       async () => {
         expect(
-          invalidClient.getInscriptionChild(SAMPLE_INSCRIPTION_ID, 0),
+          invalidClient.getChild(SAMPLE_INSCRIPTION_ID, 0),
         ).rejects.toThrow();
       },
       TIMEOUT,
@@ -265,7 +264,7 @@ describe('API Integration Tests', () => {
     test(
       'fetches latest inscriptions successfully',
       async () => {
-        const response = await client.getLatestInscriptions();
+        const response = await client.getInscriptions();
         expect(Array.isArray(response.ids)).toBe(true);
         expect(response.ids.length).toBeGreaterThan(0);
         expect(typeof response.more).toBe('boolean');
@@ -277,7 +276,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        expect(invalidClient.getLatestInscriptions()).rejects.toThrow();
+        expect(invalidClient.getInscriptions()).rejects.toThrow();
       },
       TIMEOUT,
     );
@@ -503,7 +502,7 @@ describe('API Integration Tests', () => {
     test(
       'fetches latest runes successfully',
       async () => {
-        const response = await client.getLatestRunes();
+        const response = await client.getRunesLatest();
         expect(Array.isArray(response.entries)).toBe(true);
         expect(typeof response.more).toBe('boolean');
         if (response.entries.length > 0) {
@@ -518,7 +517,7 @@ describe('API Integration Tests', () => {
     test(
       'handles server error',
       async () => {
-        expect(invalidClient.getLatestRunes()).rejects.toThrow();
+        expect(invalidClient.getRunesLatest()).rejects.toThrow();
       },
       TIMEOUT,
     );

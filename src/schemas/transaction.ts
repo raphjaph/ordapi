@@ -26,3 +26,10 @@ export const TransactionInfoSchema = z.object({
   transaction: TransactionSchema,
   txid: z.string(),
 });
+
+export const TransactionHexSchema = z
+  .string()
+  .regex(
+    /^[0-9a-f]+$/,
+    'Transaction hex must contain only lowercase hexadecimal characters',
+  );
