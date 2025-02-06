@@ -1,468 +1,464 @@
 {
-  "classMethods": [
+  "methods": [
     {
       "name": "getAddressInfo",
+      "description": "Retrieves information about a specific address including its outputs, inscriptions, and rune balances.",
       "parameters": [
         {
           "name": "address",
           "type": "string",
-          "description": ""
+          "description": "Bitcoin address to query."
         }
       ],
-      "description": "Retrieves information about a specific address including its outputs, inscriptions, and rune balances.",
       "endpoint": "/address/{address}",
       "httpMethod": "GET",
       "returnType": "Promise<AddressInfo>",
-      "recursive": false
-    },
-    {
-      "name": "getBlockInfo",
-      "parameters": [
-        {
-          "name": "heightOrHash",
-          "type": "number | BlockHash",
-          "description": ""
-        }
-      ],
-      "description": "Fetches details about a specific block by its height or hash.",
-      "endpoint": "/block/{heightOrHash}",
-      "httpMethod": "GET",
-      "returnType": "Promise<BlockInfo>",
-      "recursive": false
-    },
-    {
-      "name": "getBlockInfoRecursive",
-      "parameters": [
-        {
-          "name": "heightOrHash",
-          "type": "number | string",
-          "description": ""
-        }
-      ],
-      "description": "Gets detailed block information using the recursive endpoint.",
-      "endpoint": "/r/blockinfo/{heightOrHash}",
-      "httpMethod": "GET",
-      "returnType": "Promise<BlockDetails>",
-      "recursive": true
+      "recursive": false,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
     },
     {
       "name": "getBlockCount",
-      "parameters": [],
       "description": "Retrieves the total number of blocks in the blockchain.",
+      "parameters": [],
       "endpoint": "/blockcount",
       "httpMethod": "GET",
       "returnType": "Promise<number>",
-      "recursive": false
+      "recursive": false,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
     },
     {
       "name": "getBlockHash",
-      "parameters": [],
       "description": "Gets the hash of the latest block.",
+      "parameters": [],
       "endpoint": "/blockhash",
       "httpMethod": "GET",
       "returnType": "Promise<BlockHash>",
-      "recursive": false
-    },
-    {
-      "name": "getBlockHashRecursive",
-      "parameters": [],
-      "description": "Gets the latest block hash using the recursive endpoint.",
-      "endpoint": "/r/blockhash",
-      "httpMethod": "GET",
-      "returnType": "Promise<BlockHash>",
-      "recursive": true
+      "recursive": false,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
     },
     {
       "name": "getBlockHashByHeight",
+      "description": "Gets the hash of a block at the specified height.",
       "parameters": [
         {
           "name": "height",
           "type": "number",
-          "description": ""
+          "description": "Block height to get hash for"
         }
       ],
-      "description": "Gets the hash of a block at the specified height.",
       "endpoint": "/blockhash/{height}",
       "httpMethod": "GET",
       "returnType": "Promise<BlockHash>",
-      "recursive": false
+      "recursive": false,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
     },
     {
       "name": "getBlockHashByHeightRecursive",
+      "description": "Gets the block hash using the recursive endpoint.",
       "parameters": [
         {
           "name": "height",
           "type": "number",
-          "description": ""
+          "description": "Block height"
         }
       ],
-      "description": "Gets the block hash using the recursive endpoint.",
       "endpoint": "/r/blockhash/{height}",
       "httpMethod": "GET",
       "returnType": "Promise<BlockHash>",
-      "recursive": true
+      "recursive": true,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
+    },
+    {
+      "name": "getBlockHashRecursive",
+      "description": "Gets the latest block hash using the recursive endpoint.",
+      "parameters": [],
+      "endpoint": "/r/blockhash",
+      "httpMethod": "GET",
+      "returnType": "Promise<BlockHash>",
+      "recursive": true,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
     },
     {
       "name": "getBlockHeight",
-      "parameters": [],
       "description": "Gets the height of the latest block.",
+      "parameters": [],
       "endpoint": "/blockheight",
       "httpMethod": "GET",
       "returnType": "Promise<number>",
-      "recursive": false
+      "recursive": false,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
     },
     {
       "name": "getBlockHeightRecursive",
-      "parameters": [],
       "description": "Gets the latest block height using the recursive endpoint.",
+      "parameters": [],
       "endpoint": "/r/blockheight",
       "httpMethod": "GET",
       "returnType": "Promise<number>",
-      "recursive": true
+      "recursive": true,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
+    },
+    {
+      "name": "getBlockInfo",
+      "description": "Fetches details about a specific block by its height or hash.",
+      "parameters": [
+        {
+          "name": "heightOrHash",
+          "type": "any",
+          "description": "Block height (number) or block hash (string)."
+        }
+      ],
+      "endpoint": "/block/{heightOrHash}",
+      "httpMethod": "GET",
+      "returnType": "Promise<BlockInfo>",
+      "recursive": false,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
+    },
+    {
+      "name": "getBlockInfoRecursive",
+      "description": "Gets detailed block information using the recursive endpoint.",
+      "parameters": [
+        {
+          "name": "heightOrHash",
+          "type": "string | number",
+          "description": "Block height or hash"
+        }
+      ],
+      "endpoint": "/r/blockinfo/{heightOrHash}",
+      "httpMethod": "GET",
+      "returnType": "Promise<BlockDetails>",
+      "recursive": true,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
     },
     {
       "name": "getBlocksLatest",
-      "parameters": [],
       "description": "Returns the height of the latest block, the blockhashes of the last 100 blocks, and featured inscriptions from them.",
+      "parameters": [],
       "endpoint": "/blocks",
       "httpMethod": "GET",
       "returnType": "Promise<BlocksResponse>",
-      "recursive": false
+      "recursive": false,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
     },
     {
       "name": "getBlockTime",
-      "parameters": [],
       "description": "Gets the timestamp of the latest block.",
+      "parameters": [],
       "endpoint": "/blocktime",
       "httpMethod": "GET",
       "returnType": "Promise<number>",
-      "recursive": false
+      "recursive": false,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
     },
     {
       "name": "getBlockTimeRecursive",
-      "parameters": [],
       "description": "Gets block time using the recursive endpoint.",
+      "parameters": [],
       "endpoint": "/r/blocktime",
       "httpMethod": "GET",
       "returnType": "Promise<number>",
-      "recursive": true
-    },
-    {
-      "name": "getInscriptionInfo",
-      "parameters": [
-        {
-          "name": "id",
-          "type": "string",
-          "description": ""
-        }
-      ],
-      "description": "Retrieves information about a specific inscription by its ID.",
-      "endpoint": "/inscription/{id}",
-      "httpMethod": "GET",
-      "returnType": "Promise<InscriptionInfo>",
-      "recursive": false
-    },
-    {
-      "name": "getInscriptionRecursive",
-      "parameters": [
-        {
-          "name": "id",
-          "type": "string",
-          "description": ""
-        }
-      ],
-      "description": "Gets recursive inscription information.",
-      "endpoint": "/r/inscription/{id}",
-      "httpMethod": "GET",
-      "returnType": "Promise<InscriptionRecursive>",
-      "recursive": true
-    },
-    {
-      "name": "getInscriptions",
-      "parameters": [],
-      "description": "Gets a list of the 100 most recent inscriptions.",
-      "endpoint": "/inscriptions",
-      "httpMethod": "GET",
-      "returnType": "Promise<InscriptionsResponse>",
-      "recursive": false
-    },
-    {
-      "name": "getInscriptionsByIds",
-      "parameters": [
-        {
-          "name": "ids",
-          "type": "string[]",
-          "description": ""
-        }
-      ],
-      "description": "Retrieves information about multiple inscriptions by their IDs.",
-      "endpoint": "/inscriptions",
-      "httpMethod": "POST",
-      "returnType": "Promise<InscriptionInfo[]>",
-      "recursive": false
-    },
-    {
-      "name": "getInscriptionsByPage",
-      "parameters": [
-        {
-          "name": "page",
-          "type": "number",
-          "description": ""
-        }
-      ],
-      "description": "Gets inscriptions for a specific page number in paginated results.",
-      "endpoint": "/inscriptions/{page}",
-      "httpMethod": "GET",
-      "returnType": "Promise<InscriptionsResponse>",
-      "recursive": false
-    },
-    {
-      "name": "getInscriptionsByBlock",
-      "parameters": [
-        {
-          "name": "height",
-          "type": "number",
-          "description": ""
-        }
-      ],
-      "description": "Gets all inscriptions in a specific block.",
-      "endpoint": "/inscriptions/block/{height}",
-      "httpMethod": "GET",
-      "returnType": "Promise<InscriptionsResponse>",
-      "recursive": false
-    },
-    {
-      "name": "getInscriptionOnSat",
-      "parameters": [
-        {
-          "name": "number",
-          "type": "number",
-          "description": ""
-        },
-        {
-          "name": "index",
-          "type": "number",
-          "description": ""
-        }
-      ],
-      "description": "Gets ID of a specific inscription at an index by sat number. The inscription id at index of all inscriptions on a sat. Index may be a negative number to index from the back. 0 being the first and -1 being the most recent for example. Requires index with --index-sats flag.",
-      "endpoint": "/r/sat/{number}/at/{index}",
-      "httpMethod": "GET",
-      "returnType": "Promise<InscriptionID>",
-      "recursive": true
-    },
-    {
-      "name": "getInscriptionsOnSat",
-      "parameters": [
-        {
-          "name": "number",
-          "type": "number",
-          "description": ""
-        }
-      ],
-      "description": "Gets the first 100 inscription ids on a sat. Requires index with --index-sats flag.",
-      "endpoint": "/r/sat/{number}",
-      "httpMethod": "GET",
-      "returnType": "Promise<InscriptionsIDsResponse>",
-      "recursive": true
-    },
-    {
-      "name": "getInscriptionsOnSatByPage",
-      "parameters": [
-        {
-          "name": "number",
-          "type": "number",
-          "description": ""
-        },
-        {
-          "name": "page",
-          "type": "number",
-          "description": ""
-        }
-      ],
-      "description": "Gets paginated inscription ids for a specific satoshi.",
-      "endpoint": "/r/sat/{number}/{page}",
-      "httpMethod": "GET",
-      "returnType": "Promise<InscriptionsIDsResponse>",
-      "recursive": true
+      "recursive": true,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
     },
     {
       "name": "getChild",
+      "description": "Gets a specific child inscription of a parent inscription.",
       "parameters": [
         {
           "name": "id",
           "type": "string",
-          "description": ""
+          "description": "Parent inscription ID"
         },
         {
           "name": "child",
           "type": "number",
-          "description": ""
+          "description": "Index of the child inscription"
         }
       ],
-      "description": "Gets a specific child inscription of a parent inscription.",
       "endpoint": "/inscription/{id}/{child}",
       "httpMethod": "GET",
       "returnType": "Promise<InscriptionInfo>",
-      "recursive": false
+      "recursive": false,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
     },
     {
       "name": "getChildren",
+      "description": "Gets first 100 child inscriptions IDs.",
       "parameters": [
         {
           "name": "id",
           "type": "string",
-          "description": ""
+          "description": "Parent inscription ID"
         }
       ],
-      "description": "Gets first 100 child inscriptions IDs.",
       "endpoint": "/r/children/{id}",
       "httpMethod": "GET",
       "returnType": "Promise<InscriptionsIDsResponse>",
-      "recursive": true
+      "recursive": true,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
     },
     {
       "name": "getChildrenByPage",
+      "description": "Gets paginated child inscription IDs.",
       "parameters": [
         {
           "name": "id",
           "type": "string",
-          "description": ""
+          "description": "Parent inscription ID"
         },
         {
           "name": "page",
           "type": "number",
-          "description": ""
+          "description": "Page number"
         }
       ],
-      "description": "Gets paginated child inscription IDs.",
       "endpoint": "/r/children/{id}/{page}",
       "httpMethod": "GET",
       "returnType": "Promise<InscriptionsIDsResponse>",
-      "recursive": true
+      "recursive": true,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
     },
     {
       "name": "getChildrenInfo",
+      "description": "Gets details of the first 100 child inscriptions.",
       "parameters": [
         {
           "name": "id",
           "type": "string",
-          "description": ""
+          "description": "Parent inscription ID"
         }
       ],
-      "description": "Gets details of the first 100 child inscriptions.",
       "endpoint": "/r/children/{id}/inscriptions",
       "httpMethod": "GET",
       "returnType": "Promise<ChildrenInfoResponse>",
-      "recursive": true
+      "recursive": true,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
     },
     {
       "name": "getChildrenInfoByPage",
+      "description": "Gets paginated detailed child inscription information.",
       "parameters": [
         {
           "name": "id",
           "type": "string",
-          "description": ""
+          "description": "Parent inscription ID"
         },
         {
           "name": "page",
           "type": "number",
-          "description": ""
+          "description": "Page number"
         }
       ],
-      "description": "Gets paginated detailed child inscription information.",
       "endpoint": "/r/children/{id}/inscriptions/{page}",
       "httpMethod": "GET",
       "returnType": "Promise<ChildrenInfoResponse>",
-      "recursive": true
+      "recursive": true,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
     },
     {
-      "name": "getParents",
+      "name": "getInscriptionInfo",
+      "description": "Retrieves information about a specific inscription by its ID.",
       "parameters": [
         {
           "name": "id",
           "type": "string",
-          "description": ""
+          "description": "Inscription ID"
         }
       ],
-      "description": "Gets parent inscription IDs.",
-      "endpoint": "/r/parents/{id}",
+      "endpoint": "/inscription/{id}",
       "httpMethod": "GET",
-      "returnType": "Promise<InscriptionsResponse>",
-      "recursive": true
+      "returnType": "Promise<InscriptionInfo>",
+      "recursive": false,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
     },
     {
-      "name": "getParentsByPage",
+      "name": "getInscriptionOnSat",
+      "description": "Gets ID of a specific inscription at an index by sat number. The inscription id at index of all inscriptions on a sat. Index may be a negative number to index from the back. 0 being the first and -1 being the most recent for example. Requires index with --index-sats flag.",
+      "parameters": [
+        {
+          "name": "number",
+          "type": "number",
+          "description": "Satoshi number"
+        },
+        {
+          "name": "index",
+          "type": "number",
+          "description": "Inscription index"
+        }
+      ],
+      "endpoint": "/r/sat/{number}/at/{index}",
+      "httpMethod": "GET",
+      "returnType": "Promise<InscriptionID>",
+      "recursive": true,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
+    },
+    {
+      "name": "getInscriptionRecursive",
+      "description": "Gets recursive inscription information.",
       "parameters": [
         {
           "name": "id",
           "type": "string",
-          "description": ""
+          "description": "Inscription ID"
+        }
+      ],
+      "endpoint": "/r/inscription/{id}",
+      "httpMethod": "GET",
+      "returnType": "Promise<InscriptionRecursive>",
+      "recursive": true,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
+    },
+    {
+      "name": "getInscriptions",
+      "description": "Gets a list of the 100 most recent inscriptions.",
+      "parameters": [],
+      "endpoint": "/inscriptions",
+      "httpMethod": "GET",
+      "returnType": "Promise<InscriptionsResponse>",
+      "recursive": false,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
+    },
+    {
+      "name": "getInscriptionsByBlock",
+      "description": "Gets all inscriptions in a specific block.",
+      "parameters": [
+        {
+          "name": "height",
+          "type": "number",
+          "description": "Block height to fetch inscriptions from"
+        }
+      ],
+      "endpoint": "/inscriptions/block/{height}",
+      "httpMethod": "GET",
+      "returnType": "Promise<InscriptionsResponse>",
+      "recursive": false,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
+    },
+    {
+      "name": "getInscriptionsByIds",
+      "description": "Retrieves information about multiple inscriptions by their IDs.",
+      "parameters": [
+        {
+          "name": "ids",
+          "type": "string[]",
+          "description": "Array of inscription IDs to fetch"
+        }
+      ],
+      "endpoint": "/inscriptions",
+      "httpMethod": "POST",
+      "returnType": "Promise<InscriptionInfo[]>",
+      "recursive": false,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
+    },
+    {
+      "name": "getInscriptionsByPage",
+      "description": "Gets inscriptions for a specific page number in paginated results.",
+      "parameters": [
+        {
+          "name": "page",
+          "type": "number",
+          "description": "Page number to fetch"
+        }
+      ],
+      "endpoint": "/inscriptions/{page}",
+      "httpMethod": "GET",
+      "returnType": "Promise<InscriptionsResponse>",
+      "recursive": false,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
+    },
+    {
+      "name": "getInscriptionsOnSat",
+      "description": "Gets the first 100 inscription ids on a sat. Requires index with --index-sats flag.",
+      "parameters": [
+        {
+          "name": "number",
+          "type": "number",
+          "description": "Satoshi number"
+        }
+      ],
+      "endpoint": "/r/sat/{number}",
+      "httpMethod": "GET",
+      "returnType": "Promise<InscriptionsIDsResponse>",
+      "recursive": true,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
+    },
+    {
+      "name": "getInscriptionsOnSatByPage",
+      "description": "Gets paginated inscription ids for a specific satoshi.",
+      "parameters": [
+        {
+          "name": "number",
+          "type": "number",
+          "description": "Satoshi number"
         },
         {
           "name": "page",
           "type": "number",
-          "description": ""
+          "description": "Page number"
         }
       ],
-      "description": "Gets paginated parent inscription IDs.",
-      "endpoint": "/r/parents/{id}/{page}",
+      "endpoint": "/r/sat/{number}/{page}",
       "httpMethod": "GET",
-      "returnType": "Promise<InscriptionsResponse>",
-      "recursive": true
+      "returnType": "Promise<InscriptionsIDsResponse>",
+      "recursive": true,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
     },
     {
       "name": "getOutput",
+      "description": "Retrieves information about a specific UTXO.",
       "parameters": [
         {
           "name": "outpoint",
           "type": "string",
-          "description": ""
+          "description": "Transaction outpoint in format {txid}:{vout}"
         }
       ],
-      "description": "Retrieves information about a specific UTXO.",
       "endpoint": "/output/{outpoint}",
       "httpMethod": "GET",
       "returnType": "Promise<OutputInfo>",
-      "recursive": false
+      "recursive": false,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
     },
     {
       "name": "getOutputAssets",
+      "description": "Gets assets held by an UTXO.",
       "parameters": [
         {
           "name": "outpoint",
           "type": "string",
-          "description": ""
+          "description": "Transaction outpoint"
         }
       ],
-      "description": "Gets assets held by an UTXO.",
       "endpoint": "/r/utxo/{outpoint}",
       "httpMethod": "GET",
       "returnType": "Promise<OutputAssets>",
-      "recursive": true
+      "recursive": true,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
     },
     {
       "name": "getOutputs",
+      "description": "Gets information about multiple UTXOs.",
       "parameters": [
         {
           "name": "outpoints",
           "type": "string[]",
-          "description": ""
+          "description": "Array of outpoints to fetch"
         }
       ],
-      "description": "Gets information about multiple UTXOs.",
       "endpoint": "/outputs",
       "httpMethod": "POST",
       "returnType": "Promise<OutputInfo[]>",
-      "recursive": false
+      "recursive": false,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
     },
     {
       "name": "getOutputsByAddress",
+      "description": "Gets all UTXOs for a specific address, optionally filtered by type.",
       "parameters": [
         {
           "name": "address",
           "type": "string",
-          "description": ""
+          "description": "Bitcoin address to get outputs for"
         },
         {
           "name": "type",
@@ -470,110 +466,154 @@
           "description": ""
         }
       ],
-      "description": "Gets all UTXOs for a specific address, optionally filtered by type.",
       "endpoint": "/outputs/{address}",
       "httpMethod": "GET",
       "returnType": "Promise<OutputInfo[]>",
-      "recursive": false
+      "recursive": false,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
+    },
+    {
+      "name": "getParents",
+      "description": "Gets parent inscription IDs.",
+      "parameters": [
+        {
+          "name": "id",
+          "type": "string",
+          "description": "Child inscription ID"
+        }
+      ],
+      "endpoint": "/r/parents/{id}",
+      "httpMethod": "GET",
+      "returnType": "Promise<InscriptionsResponse>",
+      "recursive": true,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
+    },
+    {
+      "name": "getParentsByPage",
+      "description": "Gets paginated parent inscription IDs.",
+      "parameters": [
+        {
+          "name": "id",
+          "type": "string",
+          "description": "Child inscription ID"
+        },
+        {
+          "name": "page",
+          "type": "number",
+          "description": "Page number"
+        }
+      ],
+      "endpoint": "/r/parents/{id}/{page}",
+      "httpMethod": "GET",
+      "returnType": "Promise<InscriptionsResponse>",
+      "recursive": true,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
     },
     {
       "name": "getRune",
+      "description": "Gets information about a specific rune by name.",
       "parameters": [
         {
           "name": "name",
           "type": "string",
-          "description": ""
+          "description": "Rune name"
         }
       ],
-      "description": "Gets information about a specific rune by name.",
       "endpoint": "/rune/{name}",
       "httpMethod": "GET",
       "returnType": "Promise<RuneResponse>",
-      "recursive": false
-    },
-    {
-      "name": "getRunesLatest",
-      "parameters": [],
-      "description": "Gets a list of the 100 most recent runes.",
-      "endpoint": "/runes",
-      "httpMethod": "GET",
-      "returnType": "Promise<RunesResponse>",
-      "recursive": false
+      "recursive": false,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
     },
     {
       "name": "getRunesByPage",
+      "description": "Gets runes for a specific page number in paginated results.",
       "parameters": [
         {
           "name": "page",
           "type": "number",
-          "description": ""
+          "description": "Page number to fetch"
         }
       ],
-      "description": "Gets runes for a specific page number in paginated results.",
       "endpoint": "/runes/{page}",
       "httpMethod": "GET",
       "returnType": "Promise<RunesResponse>",
-      "recursive": false
+      "recursive": false,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
+    },
+    {
+      "name": "getRunesLatest",
+      "description": "Gets a list of the 100 most recent runes.",
+      "parameters": [],
+      "endpoint": "/runes",
+      "httpMethod": "GET",
+      "returnType": "Promise<RunesResponse>",
+      "recursive": false,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
     },
     {
       "name": "getSat",
+      "description": "Gets information about a specific satoshi by its number.",
       "parameters": [
         {
           "name": "number",
           "type": "number",
-          "description": ""
+          "description": "Satoshi number"
         }
       ],
-      "description": "Gets information about a specific satoshi by its number.",
       "endpoint": "/sat/{number}",
       "httpMethod": "GET",
       "returnType": "Promise<SatInfo>",
-      "recursive": false
+      "recursive": false,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
+    },
+    {
+      "name": "getServerStatus",
+      "description": "Gets the current server status and information.",
+      "parameters": [],
+      "endpoint": "/status",
+      "httpMethod": "GET",
+      "returnType": "Promise<ServerStatus>",
+      "recursive": false,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
     },
     {
       "name": "getTransaction",
+      "description": "Gets information about a specific transaction.",
       "parameters": [
         {
           "name": "txId",
           "type": "string",
-          "description": ""
+          "description": "Transaction ID"
         }
       ],
-      "description": "Gets information about a specific transaction.",
       "endpoint": "/tx/{txId}",
       "httpMethod": "GET",
       "returnType": "Promise<TransactionInfo>",
-      "recursive": false
+      "recursive": false,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
     },
     {
       "name": "getTransactionHex",
+      "description": "Gets hex transaction data.",
       "parameters": [
         {
           "name": "txid",
           "type": "string",
-          "description": ""
+          "description": "Transaction ID"
         }
       ],
-      "description": "Gets hex transaction data.",
       "endpoint": "/r/tx/{txid}",
       "httpMethod": "GET",
       "returnType": "Promise<TransactionHex>",
-      "recursive": true
-    },
-    {
-      "name": "getServerStatus",
-      "parameters": [],
-      "description": "Gets the current server status and information.",
-      "endpoint": "/status",
-      "httpMethod": "GET",
-      "returnType": "Promise<ServerStatus>",
-      "recursive": false
+      "recursive": true,
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/client.ts"
     }
   ],
-  "exportedTypes": [
+  "types": [
     {
       "name": "AddressInfo",
-      "type": "object",
+      "kind": "object",
       "description": "Comprehensive information about a Bitcoin address including its balance, outputs, inscriptions, and runes balances.",
       "properties": [
         {
@@ -597,77 +637,11 @@
           "description": ""
         }
       ],
-      "sourceFile": "address.ts"
-    },
-    {
-      "name": "BlockInfo",
-      "type": "object",
-      "description": "Basic block information including inscriptions and runes.",
-      "properties": [
-        {
-          "name": "best_height",
-          "type": "number",
-          "description": ""
-        },
-        {
-          "name": "hash",
-          "type": "BlockHash",
-          "description": ""
-        },
-        {
-          "name": "height",
-          "type": "number",
-          "description": ""
-        },
-        {
-          "name": "inscriptions",
-          "type": "string[]",
-          "description": ""
-        },
-        {
-          "name": "runes",
-          "type": "string[]",
-          "description": ""
-        },
-        {
-          "name": "target",
-          "type": "string",
-          "description": ""
-        },
-        {
-          "name": "transactions",
-          "type": "Transaction[]",
-          "description": ""
-        }
-      ],
-      "sourceFile": "block.ts"
-    },
-    {
-      "name": "BlocksResponse",
-      "type": "object",
-      "description": "Paginated response containing a list of recent blocks and metadata.",
-      "properties": [
-        {
-          "name": "blocks",
-          "type": "BlockHash[]",
-          "description": ""
-        },
-        {
-          "name": "featured_blocks",
-          "type": "Record<BlockHash, string[]>",
-          "description": ""
-        },
-        {
-          "name": "last",
-          "type": "number",
-          "description": ""
-        }
-      ],
-      "sourceFile": "block.ts"
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/schemas/address.ts"
     },
     {
       "name": "BlockDetails",
-      "type": "object",
+      "kind": "object",
       "description": "Detailed information about given block.",
       "properties": [
         {
@@ -811,11 +785,77 @@
           "description": ""
         }
       ],
-      "sourceFile": "block.ts"
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/schemas/block.ts"
+    },
+    {
+      "name": "BlockInfo",
+      "kind": "object",
+      "description": "Basic block information including inscriptions and runes.",
+      "properties": [
+        {
+          "name": "best_height",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "hash",
+          "type": "BlockHash",
+          "description": ""
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "inscriptions",
+          "type": "string[]",
+          "description": ""
+        },
+        {
+          "name": "runes",
+          "type": "string[]",
+          "description": ""
+        },
+        {
+          "name": "target",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "transactions",
+          "type": "Transaction[]",
+          "description": ""
+        }
+      ],
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/schemas/block.ts"
+    },
+    {
+      "name": "BlocksResponse",
+      "kind": "object",
+      "description": "Paginated response containing a list of recent blocks and metadata.",
+      "properties": [
+        {
+          "name": "blocks",
+          "type": "BlockHash[]",
+          "description": ""
+        },
+        {
+          "name": "featured_blocks",
+          "type": "Record<BlockHash, string[]>",
+          "description": ""
+        },
+        {
+          "name": "last",
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/schemas/block.ts"
     },
     {
       "name": "CharmType",
-      "type": "enum",
+      "kind": "enum",
       "description": "Special characteristics or properties of a sat (e.g. \"cursed\", \"epic\", \"burned\").",
       "values": [
         "burned",
@@ -833,11 +873,128 @@
         "uncommon",
         "vindicated"
       ],
-      "sourceFile": "inscription.ts"
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/schemas/inscription.ts"
+    },
+    {
+      "name": "ChildInfo",
+      "kind": "object",
+      "description": "Child inscription info retrieved from recursive endpoint.",
+      "properties": [
+        {
+          "name": "charms",
+          "type": "CharmType[]",
+          "description": ""
+        },
+        {
+          "name": "fee",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "height",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "number",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "output",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "sat",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "satpoint",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "timestamp",
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/schemas/inscription.ts"
+    },
+    {
+      "name": "ChildrenInfoResponse",
+      "kind": "object",
+      "description": "Paginated response containing child inscriptions detailed info.",
+      "properties": [
+        {
+          "name": "children",
+          "type": "ChildInfo[]",
+          "description": ""
+        },
+        {
+          "name": "more",
+          "type": "boolean",
+          "description": ""
+        },
+        {
+          "name": "page",
+          "type": "number",
+          "description": ""
+        }
+      ],
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/schemas/inscription.ts"
+    },
+    {
+      "name": "Input",
+      "kind": "object",
+      "description": "Transaction input containing previous output reference and witness data.",
+      "properties": [
+        {
+          "name": "previous_output",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "script_sig",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "sequence",
+          "type": "number",
+          "description": ""
+        },
+        {
+          "name": "witness",
+          "type": "string[]",
+          "description": ""
+        }
+      ],
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/schemas/transaction.ts"
+    },
+    {
+      "name": "InscriptionID",
+      "kind": "object",
+      "description": "Response containing a single inscription ID.",
+      "properties": [
+        {
+          "name": "id",
+          "type": "string | null",
+          "description": ""
+        }
+      ],
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/schemas/inscription.ts"
     },
     {
       "name": "InscriptionInfo",
-      "type": "object",
+      "kind": "object",
       "description": "Comprehensive information about an inscription including its content type, genesis data, location and transfer history.",
       "properties": [
         {
@@ -941,11 +1098,11 @@
           "description": ""
         }
       ],
-      "sourceFile": "inscription.ts"
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/schemas/inscription.ts"
     },
     {
       "name": "InscriptionRecursive",
-      "type": "object",
+      "kind": "object",
       "description": "Comprehensive information about an inscription retrieved from recursive endpoint.",
       "properties": [
         {
@@ -1019,34 +1176,11 @@
           "description": ""
         }
       ],
-      "sourceFile": "inscription.ts"
-    },
-    {
-      "name": "InscriptionsResponse",
-      "type": "object",
-      "description": "Paginated response containing a list of inscriptions IDs.",
-      "properties": [
-        {
-          "name": "ids",
-          "type": "string[]",
-          "description": ""
-        },
-        {
-          "name": "more",
-          "type": "boolean",
-          "description": ""
-        },
-        {
-          "name": "page_index",
-          "type": "number",
-          "description": ""
-        }
-      ],
-      "sourceFile": "inscription.ts"
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/schemas/inscription.ts"
     },
     {
       "name": "InscriptionsIDsResponse",
-      "type": "object",
+      "kind": "object",
       "description": "Paginated response containing a list of inscription IDs",
       "properties": [
         {
@@ -1065,69 +1199,16 @@
           "description": ""
         }
       ],
-      "sourceFile": "inscription.ts"
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/schemas/inscription.ts"
     },
     {
-      "name": "ChildInfo",
-      "type": "object",
-      "description": "Child inscription info retrieved from recursive endpoint.",
+      "name": "InscriptionsResponse",
+      "kind": "object",
+      "description": "Paginated response containing a list of inscriptions IDs.",
       "properties": [
         {
-          "name": "charms",
-          "type": "CharmType[]",
-          "description": ""
-        },
-        {
-          "name": "fee",
-          "type": "number",
-          "description": ""
-        },
-        {
-          "name": "height",
-          "type": "number",
-          "description": ""
-        },
-        {
-          "name": "id",
-          "type": "string",
-          "description": ""
-        },
-        {
-          "name": "number",
-          "type": "number",
-          "description": ""
-        },
-        {
-          "name": "output",
-          "type": "string",
-          "description": ""
-        },
-        {
-          "name": "sat",
-          "type": "number",
-          "description": ""
-        },
-        {
-          "name": "satpoint",
-          "type": "string",
-          "description": ""
-        },
-        {
-          "name": "timestamp",
-          "type": "number",
-          "description": ""
-        }
-      ],
-      "sourceFile": "inscription.ts"
-    },
-    {
-      "name": "ChildrenInfoResponse",
-      "type": "object",
-      "description": "Paginated response containing child inscriptions detailed info.",
-      "properties": [
-        {
-          "name": "children",
-          "type": "ChildInfo[]",
+          "name": "ids",
+          "type": "string[]",
           "description": ""
         },
         {
@@ -1136,41 +1217,62 @@
           "description": ""
         },
         {
-          "name": "page",
+          "name": "page_index",
           "type": "number",
           "description": ""
         }
       ],
-      "sourceFile": "inscription.ts"
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/schemas/inscription.ts"
     },
     {
-      "name": "InscriptionID",
-      "type": "object",
-      "description": "Response containing a single inscription ID.",
+      "name": "Output",
+      "kind": "object",
+      "description": "Transaction output containing value and script pubkey.",
       "properties": [
         {
-          "name": "id",
-          "type": "string | null",
+          "name": "script_pubkey",
+          "type": "string",
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "number",
           "description": ""
         }
       ],
-      "sourceFile": "inscription.ts"
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/schemas/transaction.ts"
     },
     {
-      "name": "OutputType",
-      "type": "enum",
-      "description": "Type of UTXO output (e.g. \"plain\", \"inscription\", \"rune\").",
-      "values": [
-        "any",
-        "cardinal",
-        "inscribed",
-        "runic"
+      "name": "OutputAssets",
+      "kind": "object",
+      "description": "Information about assets held by an UTXO.",
+      "properties": [
+        {
+          "name": "inscriptions",
+          "type": "string[] | null",
+          "description": ""
+        },
+        {
+          "name": "runes",
+          "type": "Record<string, RuneBalance> | null",
+          "description": ""
+        },
+        {
+          "name": "sat_ranges",
+          "type": "SatRange[] | null",
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "description": ""
+        }
       ],
-      "sourceFile": "output.ts"
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/schemas/output.ts"
     },
     {
       "name": "OutputInfo",
-      "type": "object",
+      "kind": "object",
       "description": "Detailed information about a UTXO including value, script type, and any inscriptions or runes it contains.",
       "properties": [
         {
@@ -1224,39 +1326,37 @@
           "description": ""
         }
       ],
-      "sourceFile": "output.ts"
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/schemas/output.ts"
     },
     {
-      "name": "OutputAssets",
-      "type": "object",
-      "description": "Information about assets held by an UTXO.",
-      "properties": [
-        {
-          "name": "inscriptions",
-          "type": "string[] | null",
-          "description": ""
-        },
-        {
-          "name": "runes",
-          "type": "Record<string, RuneBalance> | null",
-          "description": ""
-        },
-        {
-          "name": "sat_ranges",
-          "type": "SatRange[] | null",
-          "description": ""
-        },
-        {
-          "name": "value",
-          "type": "number",
-          "description": ""
-        }
+      "name": "OutputType",
+      "kind": "enum",
+      "description": "Type of UTXO output (e.g. \"plain\", \"inscription\", \"rune\").",
+      "values": [
+        "any",
+        "cardinal",
+        "inscribed",
+        "runic"
       ],
-      "sourceFile": "output.ts"
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/schemas/output.ts"
+    },
+    {
+      "name": "RarityType",
+      "kind": "enum",
+      "description": "Classification of sat rarity (e.g. \"common\", \"uncommon\", \"rare\", \"epic\", \"legendary\").",
+      "values": [
+        "common",
+        "epic",
+        "legendary",
+        "mythic",
+        "rare",
+        "uncommon"
+      ],
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/schemas/sat.ts"
     },
     {
       "name": "RuneBalance",
-      "type": "object",
+      "kind": "object",
       "description": "Basic information about a rune held by an UTXO.",
       "properties": [
         {
@@ -1275,11 +1375,11 @@
           "description": ""
         }
       ],
-      "sourceFile": "rune.ts"
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/schemas/rune.ts"
     },
     {
       "name": "RuneInfo",
-      "type": "object",
+      "kind": "object",
       "description": "Basic information about a rune including its symbol and supply details.",
       "properties": [
         {
@@ -1343,11 +1443,11 @@
           "description": ""
         }
       ],
-      "sourceFile": "rune.ts"
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/schemas/rune.ts"
     },
     {
       "name": "RuneResponse",
-      "type": "object",
+      "kind": "object",
       "description": "Detailed rune information including minting status and parent.",
       "properties": [
         {
@@ -1371,11 +1471,11 @@
           "description": ""
         }
       ],
-      "sourceFile": "rune.ts"
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/schemas/rune.ts"
     },
     {
       "name": "RunesResponse",
-      "type": "object",
+      "kind": "object",
       "description": "Paginated response containing a list of runes and metadata.",
       "properties": [
         {
@@ -1399,25 +1499,11 @@
           "description": ""
         }
       ],
-      "sourceFile": "rune.ts"
-    },
-    {
-      "name": "RarityType",
-      "type": "enum",
-      "description": "Classification of sat rarity (e.g. \"common\", \"uncommon\", \"rare\", \"epic\", \"legendary\").",
-      "values": [
-        "common",
-        "epic",
-        "legendary",
-        "mythic",
-        "rare",
-        "uncommon"
-      ],
-      "sourceFile": "sat.ts"
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/schemas/rune.ts"
     },
     {
       "name": "SatInfo",
-      "type": "object",
+      "kind": "object",
       "description": "Information about a specific satoshi including its number, timestamp, and rarity classification.",
       "properties": [
         {
@@ -1501,11 +1587,11 @@
           "description": ""
         }
       ],
-      "sourceFile": "sat.ts"
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/schemas/sat.ts"
     },
     {
       "name": "ServerStatus",
-      "type": "object",
+      "kind": "object",
       "description": "Current status information about the ordinals server including version, height and indexing progress.",
       "properties": [
         {
@@ -1589,57 +1675,29 @@
           "description": ""
         }
       ],
-      "sourceFile": "status.ts"
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/schemas/status.ts"
     },
     {
-      "name": "Input",
-      "type": "object",
-      "description": "Transaction input containing previous output reference and witness data.",
+      "name": "Time",
+      "kind": "object",
+      "description": "Type defined in /Users/gole/Desktop/ord-js/ord-js/src/schemas/status.ts",
       "properties": [
         {
-          "name": "previous_output",
-          "type": "string",
-          "description": ""
-        },
-        {
-          "name": "script_sig",
-          "type": "string",
-          "description": ""
-        },
-        {
-          "name": "sequence",
+          "name": "nanos",
           "type": "number",
           "description": ""
         },
         {
-          "name": "witness",
-          "type": "string[]",
-          "description": ""
-        }
-      ],
-      "sourceFile": "transaction.ts"
-    },
-    {
-      "name": "Output",
-      "type": "object",
-      "description": "Transaction output containing value and script pubkey.",
-      "properties": [
-        {
-          "name": "script_pubkey",
-          "type": "string",
-          "description": ""
-        },
-        {
-          "name": "value",
+          "name": "secs",
           "type": "number",
           "description": ""
         }
       ],
-      "sourceFile": "transaction.ts"
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/schemas/status.ts"
     },
     {
       "name": "Transaction",
-      "type": "object",
+      "kind": "object",
       "description": "Bitcoin transaction data including version, locktime, inputs and outputs.",
       "properties": [
         {
@@ -1663,11 +1721,11 @@
           "description": ""
         }
       ],
-      "sourceFile": "transaction.ts"
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/schemas/transaction.ts"
     },
     {
       "name": "TransactionInfo",
-      "type": "object",
+      "kind": "object",
       "description": "Extended transaction information including block details, timestamp and inscription data.",
       "properties": [
         {
@@ -1696,7 +1754,7 @@
           "description": ""
         }
       ],
-      "sourceFile": "transaction.ts"
+      "sourceFile": "/Users/gole/Desktop/ord-js/ord-js/src/schemas/transaction.ts"
     }
   ]
 }

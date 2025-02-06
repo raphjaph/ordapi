@@ -1,49 +1,111 @@
 import * as ts from 'typescript';
-import { extractDocComment, parseDocComment } from './utils/doc-parser';
+import { MethodDocumentation } from './types';
+import { extractJSDoc, visitNodes } from './shared-utils';
 import api from '../src/api';
 
-export interface MethodDoc {
-  name: string;
-  parameters: {
-    name: string;
-    type: string;
-    description: string;
-  }[];
-  description: string;
-  endpoint: string;
-  httpMethod: 'GET' | 'POST';
-  returnType: string;
-  recursive: boolean;
-}
-
-export function getMethodDocs(node: ts.MethodDeclaration, sourceFile: ts.SourceFile): MethodDoc | null {
-  const nameIdentifier = node.name as ts.Identifier;
-  const name = nameIdentifier.escapedText.toString();
+/**
+ * Generates documentation for all methods in a source file
+ */
+export function generateMethodDocs(
+  sourceFile: ts.SourceFile,
+  program: ts.Program
+): MethodDocumentation[] {
+  const methods: MethodDocumentation[] = [];
+  const typeChecker = program.getTypeChecker();
   
-  if (!name || name.startsWith('_') || ['fetch', 'fetchPost'].includes(name)) {
-    return null;
-  }
+  // Extract all method documentation from the file
+  const methodDocumentation = extractJSDoc(
+    sourceFile.fileName,
+    node => ts.isMethodDeclaration(node)
+  );
 
-  const comment = extractDocComment(node, sourceFile);
-  const docInfo = parseDocComment(comment);
-
-  const endpoint = (() => {
-    const pathFunction = api[name];
-    if (!pathFunction) return '';
-
-    if (typeof pathFunction === 'string') {
-      return pathFunction;
+  // Process each documented method
+  methodDocumentation.forEach((docs, identifier) => {
+    const methodName = identifier.split(':')[1];
+    
+    if (!isValidMethod(methodName)) {
+      return;
     }
 
-    const params = node.parameters.map(p => 
-      (p.name as ts.Identifier).escapedText.toString()
-    );
-    
+    // Find the actual method node
+    visitNodes(sourceFile, (node) => {
+      if (ts.isMethodDeclaration(node) && 
+          (node.name as ts.Identifier).text === methodName) {
+        
+        const { parameters, endpoint, httpMethod } = extractMethodInfo(node, typeChecker);
+
+        methods.push({
+          name: methodName,
+          description: docs.description,
+          parameters: parameters.map(param => ({
+            ...param,
+            description: docs.params[param.name] || ''
+          })),
+          endpoint,
+          httpMethod,
+          returnType: node.type?.getText(sourceFile) || 'Promise<void>',
+          recursive: endpoint.startsWith('/r/'),
+          sourceFile: sourceFile.fileName
+        });
+      }
+    });
+  });
+
+  return methods;
+}
+
+/**
+ * Checks if a method should be documented
+ */
+function isValidMethod(methodName: string): boolean {
+  return Boolean(
+    methodName && 
+    !methodName.startsWith('_') && 
+    !['fetch', 'fetchPost'].includes(methodName)
+  );
+}
+
+interface MethodInfo {
+  parameters: Array<{name: string; type: string}>;
+  endpoint: string;
+  httpMethod: 'GET' | 'POST';
+}
+
+function extractMethodInfo(
+  methodNode: ts.MethodDeclaration, 
+  typeChecker: ts.TypeChecker
+): MethodInfo {
+  const parameters = methodNode.parameters.map(param => ({
+    name: (param.name as ts.Identifier).escapedText.toString(),
+    type: param.type 
+      ? typeChecker.typeToString(typeChecker.getTypeFromTypeNode(param.type))
+      : 'any'
+  }));
+
+  const httpMethod = methodNode.getText().includes('this.fetchPost') ? 'POST' : 'GET';
+  const methodName = (methodNode.name as ts.Identifier).escapedText.toString();
+  const paramNames = parameters.map(p => p.name);
+  const endpoint = buildEndpoint(methodName, paramNames);
+
+  return {
+    parameters,
+    endpoint,
+    httpMethod
+  };
+}
+
+function buildEndpoint(methodName: string, paramNames: string[]): string {
+  if (api[methodName] && typeof api[methodName] === 'string') {
+    return api[methodName];
+  }
+
+  const pathFunction = api[methodName];
+  if (typeof pathFunction === 'function') {
     const functionStr = pathFunction.toString();
     const urlMatch = functionStr.match(/['"`](.*?)['"`]/);
     if (urlMatch) {
       let url = urlMatch[1];
-      params.forEach(param => {
+      paramNames.forEach(param => {
         url = url.replace(
           new RegExp(`\\$\\{${param}\\}`, 'g'), 
           `{${param}}`
@@ -51,32 +113,7 @@ export function getMethodDocs(node: ts.MethodDeclaration, sourceFile: ts.SourceF
       });
       return url;
     }
-    return '';
-  })();
+  }
 
-  const parameters = node.parameters.map(param => {
-    const paramName = (param.name as ts.Identifier).escapedText.toString();
-    const paramType = param.type 
-      ? sourceFile.text.slice(param.type.pos, param.type.end).trim()
-      : 'any';
-    
-    return {
-      name: paramName,
-      type: paramType,
-      description: docInfo.params[paramName] || ''
-    };
-  });
-
-  const methodText = sourceFile.text.slice(node.pos, node.end);
-  const httpMethod = methodText.includes('this.fetchPost') ? 'POST' : 'GET';
-
-  return {
-    name,
-    parameters,
-    description: docInfo.description,
-    endpoint,
-    httpMethod,
-    returnType: node.type?.getText(sourceFile) || 'Promise<void>',
-    recursive: endpoint.startsWith('/r/')
-  };
+  return '';
 }

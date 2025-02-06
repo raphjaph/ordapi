@@ -1,50 +1,30 @@
-import * as ts from 'typescript';
-import * as fs from 'fs';
 import * as path from 'path';
-import { CustomType, extractZodSchema } from './generateTypesDocs';
-import { getMethodDocs, type MethodDoc } from './generateMethodsDocs';
-
-interface Documentation {
-  classMethods: MethodDoc[];
-  exportedTypes: CustomType[];
-}
+import { Documentation, MethodDocumentation, TypeDocumentation } from './types';
+import { generateTypeDocs } from './generateTypesDocs';
+import { generateMethodDocs } from './generateMethodsDocs';
+import {
+  getAllFiles,
+  createTSProgram,
+  writeDocs
+} from './shared-utils';
 
 function generateDocs(sourceFiles: string[]): Documentation {
-  const options: ts.CompilerOptions = {
-    target: ts.ScriptTarget.ESNext,
-    module: ts.ModuleKind.ESNext,
-    allowJs: true,
-    checkJs: true,
-    noEmit: true,
-    types: ['node'],
-    skipLibCheck: true,
-  };
-
-  const program = ts.createProgram(sourceFiles, options);
-  const methods: MethodDoc[] = [];
-  
-  // Sort source files by their base names
-  const sortedFiles = [...sourceFiles].sort((a, b) => 
-    path.basename(a).localeCompare(path.basename(b))
-  );
-  
-  // Use OrderedMap to maintain file ordering
-  const typesByFile = new Map<string, CustomType[]>();
-  
-  // First pass: collect types maintaining file order
-  for (const sourceFile of sortedFiles) {
-    const fileName = sourceFile;
+  const program = createTSProgram(sourceFiles);
+  const methods: MethodDocumentation[] = [];
+  const typesByFile = new Map<string, TypeDocumentation[]>();
+  // First pass: collect types
+  for (const sourceFile of program.getSourceFiles()) {
+    const fileName = sourceFile.fileName;
     
-    if (!fileName.endsWith('.ts') || fileName.includes('node_modules')) {
+    if (fileName.includes('node_modules')) {
       continue;
     }
 
-    const content = fs.readFileSync(fileName, 'utf8');
-    
-    if (content.includes('z.object') || content.includes('z.enum')) {
-      const extracted = extractZodSchema(content, path.basename(fileName));
-      if (extracted.length > 0) {
-        typesByFile.set(fileName, extracted);
+    if (sourceFile.getText().includes('z.object') || 
+        sourceFile.getText().includes('z.enum')) {
+      const types = generateTypeDocs(sourceFile, program);
+      if (types.length > 0) {
+        typesByFile.set(fileName, types);
       }
     }
   }
@@ -53,75 +33,49 @@ function generateDocs(sourceFiles: string[]): Documentation {
   for (const sourceFile of program.getSourceFiles()) {
     const fileName = sourceFile.fileName;
     
-    if (!fileName.endsWith('.ts') || fileName.includes('node_modules')) {
+    if (fileName.includes('node_modules')) {
       continue;
     }
 
-    function visit(node: ts.Node) {
-      if (ts.isClassDeclaration(node)) {
-        
-        node.members.forEach(member => {
-          if (ts.isMethodDeclaration(member)) {
-            try {
-              const doc = getMethodDocs(member, sourceFile);
-              if (doc) {
-                methods.push(doc);
-              }
-            } catch (error) {
-              console.error('Error processing method:', error);
-            }
-          }
-        });
-      }
-
-      ts.forEachChild(node, visit);
-    }
-
-    visit(sourceFile);
+    methods.push(...generateMethodDocs(sourceFile, program));
   }
 
-  // Combine types in file order
-  const allTypes: CustomType[] = [];
-  for (const [file, types] of typesByFile.entries()) {
-    allTypes.push(...types);
-  }
+  // Combine all types preserving file order
+  const allTypes = Array.from(typesByFile.values()).flat();
 
   return {
-    classMethods: methods,
-    exportedTypes: allTypes
+    methods: methods.sort((a, b) => a.name.localeCompare(b.name)),
+    types: allTypes.sort((a, b) => a.name.localeCompare(b.name))
   };
 }
 
-// Ensure the docs directory exists
-const docsDir = path.join(process.cwd(), 'docs');
-if (!fs.existsSync(docsDir)) {
-  fs.mkdirSync(docsDir);
-}
+// Main execution
+const SOURCE_DIR = './src';
+const DOCS_DIR = path.join(process.cwd(), 'docs');
+
+// Get source files
+const sourceFiles = [
+  ...getAllFiles({
+    sourceDir: SOURCE_DIR,
+    includeExtensions: ['.ts']
+  }),
+  ...getAllFiles({
+    sourceDir: path.join(SOURCE_DIR, 'schemas'),
+    includeExtensions: ['.ts'], 
+  }),
+  ...getAllFiles({
+    sourceDir: path.join(SOURCE_DIR, 'types'),
+    includeExtensions: ['.ts'], 
+  })
+];
 
 // Generate documentation
-const sourceDir = './src';
-const sourceFiles = [
-  ...fs.readdirSync(sourceDir)
-    .filter(file => file.endsWith('.ts'))
-    .map(file => path.join(sourceDir, file)),
-  ...getAllFiles(path.join(sourceDir, 'schemas'))
-    .filter(file => file.endsWith('.ts'))
-].sort((a, b) => path.basename(a).localeCompare(path.basename(b))); // Sort all source files
-
 const docs = generateDocs(sourceFiles);
 
-fs.writeFileSync(
-  path.join(docsDir, 'api-docs.json'), 
-  JSON.stringify(docs, null, 2)
+// Write the documentation to file
+writeDocs(
+  path.join(DOCS_DIR, 'api-docs.json'),
+  docs
 );
 
-function getAllFiles(dir: string): string[] {
-  if (!fs.existsSync(dir)) {
-    return [];
-  }
-  const files = fs.readdirSync(dir);
-  return files.flatMap(file => {
-    const fullPath = path.join(dir, file);
-    return fs.statSync(fullPath).isDirectory() ? getAllFiles(fullPath) : fullPath;
-  });
-}
+console.log('Documentation generated successfully at docs/api-docs.json');

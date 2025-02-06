@@ -9,7 +9,7 @@ function generateHtml() {
   const scriptsContent = fs.readFileSync('docs/scripts.js', 'utf-8');
   const apiDocs = JSON.parse(fs.readFileSync('docs/api-docs.json', 'utf-8'));
   const cssContent = fs.readFileSync('docs/styles.css', 'utf-8');
-  const typeNames = new Set(apiDocs.exportedTypes.map(type => type.name));
+  const typeNames = new Set(apiDocs.types.map(type => type.name));
 
   function createTypeLink(type) {
     const escaped = type.replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -100,7 +100,7 @@ function generateHtml() {
             <main class="max-w-5xl mx-auto h-full relative">
                 <div id="methods-content" class="tab-content active">
                     <div class="space-y-6">
-                        ${apiDocs.classMethods.map(method => `
+                        ${apiDocs.methods.map(method => `
                             <article class="doc-section">
                                 <header class="doc-header">
                                     <div class="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4 mb-2">
@@ -142,7 +142,7 @@ function generateHtml() {
 
         <div id="types-content" class="tab-content">
     <div class="space-y-6">
-        ${apiDocs.exportedTypes.map(type => `
+        ${apiDocs.types.map(type => `
             <article class="doc-section" id="${type.name}">
                 <header class="doc-header">
                     <h3 class="text-title font-bold font-mono mb-1">${type.name}</h3>
