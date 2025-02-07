@@ -1,6 +1,13 @@
 Changelog
 =========
 
+[0.0.5](https://github.com/raphjaph/ordapi/releases/tag/0.0.5) - 2025-02-07
+---------------------------------------------------------------------------
+
+### Added
+- Add docs to package.json (#22)
+- Remove post requests (#21)
+
 [0.0.4](https://github.com/raphjaph/ordapi/releases/tag/0.0.4) - 2025-02-07
 ---------------------------------------------------------------------------
 
