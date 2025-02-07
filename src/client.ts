@@ -91,34 +91,6 @@ export class OrdClient {
     return result.data;
   }
 
-  private async fetchPost<T extends z.ZodType, P extends object>(
-    endpoint: string,
-    payload: P,
-    schema: T,
-  ): Promise<z.infer<T>> {
-    const response = await fetch(`${this.baseUrl}${endpoint}`, {
-      method: 'POST',
-      headers: {
-        ...this.headers,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    });
-
-    if (!response.ok) {
-      throw new Error(`API request failed: ${response.statusText}`);
-    }
-
-    const data = await response.json();
-    const result = schema.safeParse(data);
-
-    if (!result.success) {
-      throw new Error(`Validation error: ${result.error.message}`);
-    }
-
-    return result.data;
-  }
-
   /**
    * Retrieves information about a specific address including its outputs,
    * inscriptions, and rune balances.
@@ -260,19 +232,6 @@ export class OrdClient {
    */
   async getInscriptions(): Promise<InscriptionsResponse> {
     return this.fetch(api.getInscriptions, InscriptionsResponseSchema);
-  }
-
-  /**
-   * Retrieves information about multiple inscriptions by their IDs.
-   *
-   * @param {string[]} ids - Array of inscription IDs to fetch
-   */
-  async getInscriptionsByIds(ids: string[]): Promise<InscriptionInfo[]> {
-    return this.fetchPost(
-      api.getInscriptionsByIds,
-      ids,
-      z.array(InscriptionInfoSchema),
-    );
   }
 
   /**
@@ -444,15 +403,6 @@ export class OrdClient {
    */
   async getOutputAssets(outpoint: string): Promise<OutputAssets> {
     return this.fetch(api.getOutputAssets(outpoint), OutputAssetsSchema);
-  }
-
-  /**
-   * Gets information about multiple UTXOs.
-   *
-   * @param {string[]} outpoints - Array of outpoints to fetch
-   */
-  async getOutputs(outpoints: string[]): Promise<OutputInfo[]> {
-    return this.fetchPost(api.getOutputs, outpoints, z.array(OutputInfoSchema));
   }
 
   /**
