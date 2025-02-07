@@ -1,6 +1,13 @@
 Changelog
 =========
 
+[0.0.4](https://github.com/raphjaph/ordapi/releases/tag/0.0.4) - 2025-02-07
+---------------------------------------------------------------------------
+
+### Added
+- Improve release scripts (#19)
+- Add recursive endpoints and docs improvements (#18)
+
 [0.0.3](https://github.com/raphjaph/ordapi/releases/tag/0.0.3) - 2025-02-04
 ---------------------------------------------------------------------------
 
