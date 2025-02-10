@@ -12,9 +12,11 @@ const api = {
   getInscriptionInfo: (id: string) => `/inscription/${id}`,
   getChild: (id: string, child: number) => `/inscription/${id}/${child}`,
   getInscriptions: '/inscriptions',
+  getInscriptionsByIds: '/inscriptions',
   getInscriptionsByPage: (page: number) => `/inscriptions/${page}`,
   getInscriptionsByBlock: (height: number) => `/inscriptions/block/${height}`,
   getOutput: (outpoint: string) => `/output/${outpoint}`,
+  getOutputs: '/outputs',
   getOutputsByAddress: (address: string, type?: OutputType) => {
     const base = `/outputs/${address}`;
     return type ? `${base}?type=${type}` : base;
