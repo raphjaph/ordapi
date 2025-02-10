@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 function generateHtml() {
+    
   const config = {
     repoAddress: 'https://github.com/raphjaph/ordapi',
     version: 'v0.0.5'

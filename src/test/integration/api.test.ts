@@ -325,6 +325,43 @@ describe('API Integration Tests', () => {
     );
   });
 
+  describe('getInscriptionsByIds', () => {
+    test(
+      'fetches multiple inscriptions successfully',
+      async () => {
+        const inscriptions = await client.getInscriptionsByIds([
+          SAMPLE_INSCRIPTION_ID,
+          SAMPLE_CHILD_ID,
+        ]);
+        expect(Array.isArray(inscriptions)).toBe(true);
+        expect(inscriptions.length).toBe(2);
+        expect(inscriptions[0].id).toBe(SAMPLE_INSCRIPTION_ID);
+        expect(inscriptions[1].id).toBe(SAMPLE_CHILD_ID);
+      },
+      TIMEOUT,
+    );
+
+    test(
+      'handles server error',
+      async () => {
+        expect(
+          invalidClient.getInscriptionsByIds([SAMPLE_INSCRIPTION_ID]),
+        ).rejects.toThrow();
+      },
+      TIMEOUT,
+    );
+
+    test(
+      'handles empty array',
+      async () => {
+        const inscriptions = await client.getInscriptionsByIds([]);
+        expect(Array.isArray(inscriptions)).toBe(true);
+        expect(inscriptions.length).toBe(0);
+      },
+      TIMEOUT,
+    );
+  });
+
   describe('getOutput', () => {
     test(
       'fetches output successfully',
@@ -349,6 +386,40 @@ describe('API Integration Tests', () => {
       'handles server error',
       async () => {
         expect(invalidClient.getOutput(SAMPLE_OUTPOINT_A)).rejects.toThrow();
+      },
+      TIMEOUT,
+    );
+  });
+
+  describe('getOutputs', () => {
+    test(
+      'fetches multiple outputs successfully',
+      async () => {
+        const outpoints = [SAMPLE_OUTPOINT_A, SAMPLE_OUTPOINT_B];
+        const outputs = await client.getOutputs(outpoints);
+        expect(Array.isArray(outputs)).toBe(true);
+        expect(outputs[0].outpoint).toBe(SAMPLE_OUTPOINT_A);
+        expect(outputs[1].outpoint).toBe(SAMPLE_OUTPOINT_B);
+      },
+      TIMEOUT,
+    );
+
+    test(
+      'handles empty array',
+      async () => {
+        const outputs = await client.getOutputs([]);
+        expect(Array.isArray(outputs)).toBe(true);
+        expect(outputs.length).toBe(0);
+      },
+      TIMEOUT,
+    );
+
+    test(
+      'handles server error',
+      async () => {
+        expect(
+          invalidClient.getOutputs([SAMPLE_OUTPOINT_A, SAMPLE_OUTPOINT_B]),
+        ).rejects.toThrow();
       },
       TIMEOUT,
     );
