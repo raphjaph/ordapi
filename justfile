@@ -39,7 +39,7 @@ prepare-release revision='master':
 publish-release revision='master':
   #!/usr/bin/env bash
   set -euxo pipefail
-  rm -rf tmp/release
+  rm -rf tmp
   git clone https://github.com/raphjaph/ordapi.git tmp/release
   cd tmp/release
   git checkout {{ revision }}
@@ -47,4 +47,4 @@ publish-release revision='master':
   bun run build
   bun publish
   cd ../..
-  rm -rf tmp/release
+  rm -rf tmp

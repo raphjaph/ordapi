@@ -1,6 +1,13 @@
 Changelog
 =========
 
+[0.0.6](https://github.com/raphjaph/ordapi/releases/tag/0.0.6) - 2025-02-12
+---------------------------------------------------------------------------
+
+### Added
+- Add build step to justfile publish script (#27)
+- Add back POST endpoints (#25)
+
 [0.0.5](https://github.com/raphjaph/ordapi/releases/tag/0.0.5) - 2025-02-07
 ---------------------------------------------------------------------------
 

@@ -5,7 +5,7 @@ function generateHtml() {
     
   const config = {
     repoAddress: 'https://github.com/raphjaph/ordapi',
-    version: 'v0.0.5'
+    version: 'v0.0.6'
   };
   const scriptsContent = fs.readFileSync('docs/scripts.js', 'utf-8');
   const apiDocs = JSON.parse(fs.readFileSync('docs/api-docs.json', 'utf-8'));
