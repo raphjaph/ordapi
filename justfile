@@ -43,6 +43,8 @@ publish-release revision='master':
   git clone https://github.com/raphjaph/ordapi.git tmp/release
   cd tmp/release
   git checkout {{ revision }}
+  bun install
+  bun run build
   bun publish
   cd ../..
   rm -rf tmp/release
