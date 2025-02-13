@@ -1,6 +1,7 @@
 install:
   bun install
 
+
 build: install
   bun run build
 
