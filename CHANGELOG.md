@@ -1,6 +1,12 @@
 Changelog
 =========
 
+[0.0.7](https://github.com/raphjaph/ordapi/releases/tag/0.0.7) - 2025-02-13
+---------------------------------------------------------------------------
+
+### Added
+- Move eslint to devDepencies (#31)
+
 [0.0.6](https://github.com/raphjaph/ordapi/releases/tag/0.0.6) - 2025-02-12
 ---------------------------------------------------------------------------
 
