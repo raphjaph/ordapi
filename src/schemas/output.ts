@@ -15,6 +15,7 @@ export const SatRangeSchema = z.tuple([
 
 export const OutputInfoSchema = z.object({
   address: z.string().nullable(),
+  confirmations: z.number(),
   indexed: z.boolean(),
   inscriptions: z.array(z.string()).nullable(),
   outpoint: z.string(),

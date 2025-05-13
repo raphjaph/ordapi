@@ -37,6 +37,8 @@ export const SAMPLE_ADDRESS_INFO = {
   outputs: [
     '37bd80a1a6f763b556e6e061435fde3847765578a993fa0446023a0f94011d0a:240',
     'b59bc9542e2715cc9b4e21cf29e5f2e763e5eb924b3d98fd84947b5e78ec1476:0',
+    '944e21cb6b91684d560da42ef7b9048bf3f4da7dfc85944493815540e476d9b1:918',
+    '291aadee35b134b8d677a26a1790aec2083944c802dd7d084dfbb04cb08e63bc:1',
     '11b9f231169f0f07270011aa6430f77cc7e99794446cc34e951d7e01614fe0bd:1701',
     '44c6b5a3f23b1e8ffbadfcb618bb7a724172c49f2594de9abb39e1f30a0dadcc:1698',
     'e1380b2896ad2e47f67a07e2d44806ba225a33e0cd5a01b0aba3d44735a87fe6:1687',
@@ -44,13 +46,15 @@ export const SAMPLE_ADDRESS_INFO = {
   ],
   inscriptions: [
     '3beb59221cec3d1fbc189fc54933488a8015f4f25cabe9d41537bc45a63b0137i0',
+    '291aadee35b134b8d677a26a1790aec2083944c802dd7d084dfbb04cb08e63bci0',
     '0000077c4851b026f4d19c25bf80de7b5b44b856da50d67ae8da304bd3be6999i5698',
   ],
-  sat_balance: 3297,
+  sat_balance: 3957,
   runes_balances: [
     ['GREED•FRAGMENTS', '417', '∞'],
     ['LIQUIDIUM•TOKEN', '117.42', '🫠'],
     ['EPIC•EPIC•EPIC•EPIC', '20000', '💥'],
+    ['MAGIC•INTERNET•MONEY', '100', '🧙'],
   ],
 };
 
@@ -71,7 +75,7 @@ export const SAMPLE_BLOCKS_RESPONSE = {
 };
 
 export const SAMPLE_OUTPOINT_A =
-  'e553c4f6742ec65893611778a2f90305ac6be25f84771f505366b729a179af8c:0';
+  '8aa673bc752f2851fd645d6a0a92917e967083007d9c1684f9423b100540673f:0';
 
 export const SAMPLE_OUTPOINT_B =
   '85abae61cf0f7f90efc67ab5059e6ee3e600c3015ea68e9b33e945d8555766ed:100';
@@ -158,6 +162,7 @@ export const SAMPLE_BLOCK_HEIGHT = 767430;
 
 export const SAMPLE_UTXO_INFO = {
   address: 'bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4',
+  confirmations: 6,
   indexed: true,
   inscriptions: [
     '6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0',
