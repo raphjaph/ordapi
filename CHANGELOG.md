@@ -1,6 +1,12 @@
 Changelog
 =========
 
+[0.0.8](https://github.com/raphjaph/ordapi/releases/tag/0.0.8) - 2025-05-12
+---------------------------------------------------------------------------
+
+### Added
+- Update output endpoint (#36)
+
 [0.0.7](https://github.com/raphjaph/ordapi/releases/tag/0.0.7) - 2025-02-13
 ---------------------------------------------------------------------------
 
